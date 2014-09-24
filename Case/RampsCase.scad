@@ -210,10 +210,10 @@ module rampsCase(){
 	// 30x30 fans mounting hole
 	for(i=[-40,40])translate([i,42,-30])rotate([-90,0,0])union(){
 	    //cube([36,36,8],center=true);
-	    for(i=[-13,13])for(j=[-13,13])translate([i,j,0])
+	    for(i=[-11.75,11.75])for(j=[-11.75,11.75])translate([i,j,0])
 	    cylinder(r=m3ScrewRadius, h=20, center=true, $fn=20);
 	    cylinder(r=14,h=10,center=true,$fn=20);
-	    translate([0,0,-2])minkowski(){
+	    translate([0,0,-0.5])minkowski(){
 		cube([30,30,4],center=true);
 		cylinder(r=2,h=1,center=true,$fn=20);
 	    }
@@ -607,18 +607,25 @@ module skeletonSideR(){
 distance=0;
 //translate([0,-distance,distance])rampsLcdFace();
 //translate([0,distance,distance])rampsTopFace();
-translate([0,distance,0])rampsBackFace();
-//translate([0,0,-distance])rampsBottomFace();
+//translate([0,distance,0])rampsBackFace();
+translate([0,0,-distance])rampsBottomFace();
 
 // left side cover
-//translate([-lcd_x/2-thick*1.5-distance,0,0])
-//difference(){
-//    rampsCaseSide();
-    // leave a slot for sc card, one side only
-//    translate([80,-58,16])rotate([60,0,0])lcdPanel();
+module lsCover(){
+    translate([-lcd_x/2-thick*1.5-distance,0,0])
+    difference(){
+	rampsCaseSide();
+	// leave a slot for sc card, one side only
+	translate([80,-58,16])rotate([60,0,0])lcdPanel();
 	
-//}
+    }
+}
+
 
 // right side cover
-//translate([lcd_x/2+thick*1.5+distance,0,0])mirror([1,0,0]) rampsCaseSide();
+module rsCover(){
+    translate([lcd_x/2+thick*1.5+distance,0,0])mirror([1,0,0]) rampsCaseSide();
+}
 
+//lsCover();
+//rsCover();

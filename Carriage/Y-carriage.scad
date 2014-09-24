@@ -125,112 +125,122 @@ echo(sf);
 
 
 module YCarriage(){
-difference(){
+    difference(){
 	intersection(){
-		union() {
-			//hull() 
-				scale([sf,sf,1]) linear_extrude(height = carriageThickness, center = true, convexity = 10, scale =[1,1])  Yshape();
-			for (i=[0:2]){
-				translate([wheelOriginDistance*cos(60+120*i),wheelOriginDistance*sin(60+120*i),-cylinderHeight-2]) wheelHolder();
-				translate([wheelOriginDistance*cos(60+120*i), wheelOriginDistance*sin(60+120*i), -cylinderHeight*2]) 
-					%wheel(wheelRadius, m4ScrewRadius, wheelThickness);}
-		}
-		//translate([0,0,-91]) sphere (r=100,center=true, $fn=60);
+	    union() {
+		//hull() 
+		scale([sf,sf,1])
+		linear_extrude(height = carriageThickness, center = true, convexity = 10, scale =[1,1])
+		Yshape();
+
+		for (i=[0:2]){
+		    translate([wheelOriginDistance*cos(60+120*i),wheelOriginDistance*sin(60+120*i),-cylinderHeight-2])
+		    wheelHolder();
+		    
+		    translate([wheelOriginDistance*cos(60+120*i), wheelOriginDistance*sin(60+120*i), -cylinderHeight*2]) 
+		    %color("white") wheel(wheelRadius, m4ScrewRadius, wheelThickness);}
+	    }
+	    //translate([0,0,-91]) sphere (r=100,center=true, $fn=60);
 	}
 	for (i=[0:2]){
-		translate([wheelOriginDistance*cos(60+120*i),wheelOriginDistance*sin(60+120*i),-cylinderHeight-2]) cylinder(r=m4ScrewRadius, h=30);
-		translate([wheelOriginDistance*cos(60+120*i),wheelOriginDistance*sin(60+120*i),-0.5]) cylinder(r=m4NutRadius, h=6, $fn=6);}
-		
-}
+	    translate([wheelOriginDistance*cos(60+120*i),wheelOriginDistance*sin(60+120*i),-cylinderHeight-2])
+	    cylinder(r=m4ScrewRadius, h=30);
+
+	    translate([wheelOriginDistance*cos(60+120*i),wheelOriginDistance*sin(60+120*i),-0.5])
+	    cylinder(r=m4NutRadius, h=6, $fn=6);}
+	
+    }
 }
 
 module beltPlate(){
-	union(){
-		roundedBox([extrudeWidth, extrudeWidth, wingThickness], 2.5, true);
+    union(){
+	roundedBox([extrudeWidth, extrudeWidth, wingThickness], 2.5, true);
 	
-		cylinder(r=beltWidth/2, h=beltWidth+wingThickness);
+	cylinder(r=beltWidth/2, h=beltWidth+wingThickness);
 	
-		cube([beltWidth/2, extrudeWidth/2, beltWidth + wingThickness]);
-
-		for (i = [1:1:9]) translate([0.3, i,0 ]) cylinder(r=beltThickness/2, h=beltWidth + wingThickness);
-
-		hull(){
-			translate([-beltWidth/2, beltWidth/2+beltThickness, wingThickness+beltWidth-1]) 
-				cube([beltWidth/2-beltThickness, extrudeWidth/2 - beltThickness - beltWidth/2, 1]);
+	cube([beltWidth/2, extrudeWidth/2, beltWidth + wingThickness]);
 	
-			translate([-beltWidth/2-beltThickness, beltWidth/2+beltThickness, 0])
-				cube([beltWidth/2 , extrudeWidth/2-beltThickness - beltWidth/2, 1]);
-		}
+	for (i = [1:1:9]) translate([0.3, i,0 ]) cylinder(r=beltThickness/2, h=beltWidth + wingThickness);
+	
+	hull(){
+	    translate([-beltWidth/2, beltWidth/2+beltThickness, wingThickness+beltWidth-1]) 
+	    cube([beltWidth/2-beltThickness, extrudeWidth/2 - beltThickness - beltWidth/2, 1]);
+	    
+	    translate([-beltWidth/2-beltThickness, beltWidth/2+beltThickness, 0])
+	    cube([beltWidth/2 , extrudeWidth/2-beltThickness - beltWidth/2, 1]);
 	}
+    }
 }
 
 module wing(){
-	difference(){
-		union(){
-			hull(){
-				translate([ballSeperateDistance/2, 0, 0]) rotate([ballJointAngle, 0, 0])
-					translate([0, 0, 1.2*wingThickness])
-						cylinder(r=ballBaseRadius, h=5.7);
-
-				translate([ballSeperateDistance/2, 0, 0]) 
-					roundedBox([2*(ballBaseRadius+1), 2*(ballBaseRadius+1), wingThickness], 2.5, true);	
-				}
-
-			hull(){
-				translate([-ballSeperateDistance/2, 0, 0]) rotate([ballJointAngle, 0, 0])
-					translate([0, 0, 1.2*wingThickness])
-						cylinder(r=ballBaseRadius, h=5.7);
-
-				translate([-ballSeperateDistance/2, 0, 0]) 
-					roundedBox([2*(ballBaseRadius+1), 2*(ballBaseRadius+1), wingThickness], 2.5, true);	
-			}
-	
-			roundedBox([ballSeperateDistance, 2 * ballBaseRadius+1, wingThickness], 2.5, true);
-
-			//translate([5,0,0]) roundedBox([extrudeWidth, extrudeWidth, wingThickness], 2.5, true);
-			translate([-extrusionX-extrudeWidth/2,0,0]) beltPlate();
-
-			translate([-extrusionX-extrudeWidth/2,0,0]) mirror([0,1,0]) translate([0, 11, 0]) beltPlate();
-		}
+    difference(){
+	union(){
+	    hull(){
 		translate([ballSeperateDistance/2, 0, 0]) rotate([ballJointAngle, 0, 0])
-					translate([0, 0, -1.2*wingThickness])
-					{
-						cylinder(h=50, r=ballScrewRadius);
-						translate([0,0,24]) sphere(r=ballJointRadius, center=true);
-						translate([0,0,0]) cylinder(h=15, r=m4ScrewHeadRadius);
-					}	
+		translate([0, 0, 1.2*wingThickness])
+		cylinder(r=ballBaseRadius, h=5.7);
+		
+		translate([ballSeperateDistance/2, 0, 0]) 
+		roundedBox([2*(ballBaseRadius+1), 2*(ballBaseRadius+1), wingThickness], 2.5, true);	
+	    }
+	    
+	    hull(){
 		translate([-ballSeperateDistance/2, 0, 0]) rotate([ballJointAngle, 0, 0])
-					translate([0, 0, -1.2*wingThickness])
-					{
-						cylinder(h=50, r=ballScrewRadius);
-						translate([0,0,24]) sphere(r=ballJointRadius, center=true);
-						translate([0,0,0]) cylinder(h=15, r=m4ScrewHeadRadius);
-					}	
-		translate([1.5, 0.5 ,-1]) rotate([-90,0,0]) cylinder(h = 30,r=m3ScrewRadius);
+		translate([0, 0, 1.2*wingThickness])
+		cylinder(r=ballBaseRadius, h=5.7);
+		
+		translate([-ballSeperateDistance/2, 0, 0]) 
+		roundedBox([2*(ballBaseRadius+1), 2*(ballBaseRadius+1), wingThickness], 2.5, true);	
+	    }
+	    
+	    roundedBox([ballSeperateDistance, 2 * ballBaseRadius+1, wingThickness], 2.5, true);
+	    
+	    //translate([5,0,0]) roundedBox([extrudeWidth, extrudeWidth, wingThickness], 2.5, true);
+	    translate([-extrusionX-extrudeWidth/2,0,0]) beltPlate();
+	    
+	    translate([-extrusionX-extrudeWidth/2,0,0]) mirror([0,1,0]) translate([0, 11, 0]) beltPlate();
 	}
+	translate([ballSeperateDistance/2, 0, 0]) rotate([ballJointAngle, 0, 0])
+	translate([0, 0, -1.2*wingThickness])
+	{
+	    cylinder(h=50, r=ballScrewRadius);
+	    translate([0,0,24]) sphere(r=ballJointRadius, center=true);
+	    translate([0,0,0]) cylinder(h=15, r=m4ScrewHeadRadius);
+	}	
+	translate([-ballSeperateDistance/2, 0, 0]) rotate([ballJointAngle, 0, 0])
+	translate([0, 0, -1.2*wingThickness])
+	{
+	    cylinder(h=50, r=ballScrewRadius);
+	    translate([0,0,24]) sphere(r=ballJointRadius, center=true);
+	    translate([0,0,0]) cylinder(h=15, r=m4ScrewHeadRadius);
+	}	
+	translate([1.5, 0.5 ,-1]) rotate([-90,0,0]) cylinder(h = 30,r=m3ScrewRadius);
+    }
 }
 
 
 module wingWithScrewHoles(rr){
-difference(){
-
-	color([1,0,0,1]) translate([extrusionX+10, 0, carriageThickness-1.5]) wing();
-
+    difference(){
+	
+	color([0.3,0.3,0.3]) translate([extrusionX+10, 0, carriageThickness-1.5]) wing();
+	
 	for (i=[60:120:360]) translate([rr*cos(i)+1.5, rr*sin(i)-1,-40]) cylinder(r=m3ScrewRadius, h=100);
 	for (i=[60:120:360]) translate([rr*cos(i)+1.5, rr*sin(i)-1, wingThickness + carriageThickness/2 - 3.0]) 
-		cylinder(r=m3ScrewHeadRadius, h=3.0+0.1);
-
-	}
+	cylinder(r=m3ScrewHeadRadius, h=3.0+0.1);
+	
+    }
 }
 
 	
 module YCarriageWithScrewHoles(rr){
-	difference(){
-		YCarriage();
-		for (i=[60:120:360]) translate([rr*cos(i)+1.5, rr*sin(i)-1,-40]) cylinder(r=m3ScrewRadius, h=100);
-		for (i=[60:120:360]) translate([rr*cos(i)+1.5, rr*sin(i)-1,-carriageThickness/2]) cylinder(r=m3NutRadius, h=3, $fn=6);
-		translate([-8,-2.5,-4.5]) cube([20,3,.5]);	
-	}
+    difference(){
+	color([0.3,0.3,0.3])YCarriage();
+	for (i=[60:120:360]) translate([rr*cos(i)+1.5, rr*sin(i)-1,-40])
+	cylinder(r=m3ScrewRadius, h=100);
+	for (i=[60:120:360]) translate([rr*cos(i)+1.5, rr*sin(i)-1,-carriageThickness/2])
+	cylinder(r=m3NutRadius, h=3, $fn=6);
+	translate([-8,-2.5,-4.5]) cube([20,3,.5]);	
+    }
 }
 
 
