@@ -5,8 +5,8 @@ Yet another large Kossel 3D printer using 20x20 aluminum extrusion, different fr
 XL means both "extra-large" and the abbreviation of my chinese name ;-)
 
 For the look of it, please see the following pics:
-![Assembled][./Assemble/assemble.png]
-![Exposed][./Assemble/assembleExpose.png]
+![assemble](https://github.com/tigertooth4/Kossel-XL/blob/master/Assemble/assemble.png)
+![assemble](https://github.com/tigertooth4/Kossel-XL/blob/master/Assemble/assembleExpose.png)
 
 Having known there are different implementations scattering around, but most of them did not give a complete set of files and designs, I decided to make my own Kossel 3D printer (see Reprap.org for further info about Kossel 3D printer). To me the goal is very clear: I want to build a Kossel with the follow features:
 
