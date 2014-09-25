@@ -30,8 +30,6 @@ m3ScrewHeadRadius = 3.0;
 m3NutRadius = 3.5; //
 
 
-
-
 module bottomCover(height){
     // draw the basic shape
 

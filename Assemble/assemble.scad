@@ -5,8 +5,10 @@ use <../Effector/effector.scad>
 use <../PowerBox/powerBox.scad>
 use <../Rods/rod_connector.scad>
 use <../Fans/fans.scad>
+use <../HeatbedSupport/heatbedSupport.scad>
+use <../PowerBrickMount/powerBrickMount.scad>
 
-expose = 150;
+expose = 0;
 l = 330 +expose;
 r = l/2+110 + expose;
 h = 700;
@@ -15,12 +17,14 @@ extrusion = 20;
 translate([0,0,-h/2]){
 
 // draw the motor frame
-color("red")
 for(i=[0,120,240])
 rotate([0,0,i])
 translate([-r*cos(30),-r*sin(30),0])rotate([0,0, -60])
 translate([0,80,-expose])
-frame_motor();
+{
+    color("red") frame_motor();
+    color("black")translate([0,0,-28])bottomCover(20);
+}
 
 // draw the top frame
 color("red")
@@ -118,14 +122,37 @@ translate([40,y+expose/2,0])
 }
 
 // draw the power box
-color("blue")translate([l*cos(60)-50,-l*cos(60),0]){
+color("blue")translate([l*cos(60)-50,-l*cos(60)+15,0]){
 powerBoxRight();
 powerBoxLeft();}
 
+// draw the heatbed support
+translate([0,0,30]){
+    color("blue") translate([0,0,-5])rotate([0,0,30])centerSupport();
+    color("black") for(i=[0,120,240])rotate([0,0,60+i])translate([0,-130,0])hbsupport();
+}
+
 // draw the plate
-color("silver") translate([0,0, 30])
-cylinder(r=130, h =3, $fn=30);
+color([0.65,0.55,0]) translate([0,0,35])
+cylinder(r=114.3 , h=10, $fn=60);
+color("silver") translate([0,0, 50])
+union(){
+    cylinder(r=130, h =3, $fn=30);
+    for(i=[0,120,240]) rotate([0,0,-30+i])
+    translate([125,0,0])minkowski(){
+	cube([13,100,2],center=true);
+	cylinder(r=1,h=1,center=true,$fn=20);}
+}
 
+// draw the power brick and mounts
+color("silver") cube([113,215,45],center=true);
+color("black") {
+translate([-113/2+32,215/2-32,-30])rotate([0,0,-30])mount(68);
+translate([-113/2+32,-215/2+32,-30]) rotate([0,0,90]) mount(45);
 
+translate([113/2-32,215/2-32,-30])rotate([0,0,-150])mount(68);
+translate([113/2-32,-215/2+32,-30]) rotate([0,0,90]) mount(45);
+
+}
 }
 

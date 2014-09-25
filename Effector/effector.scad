@@ -59,7 +59,7 @@ module triangleShape (){
     minkowski(){
 	intersection(){
 	    circle(r= baseShapeRadius,$fn=3); //small one, 2/3 shortEdge, 1/3 longEdge 
-		rotate([0,0,180]) circle(r=(2*longEdge + shortEdge)/3*sqrt3-roundness*2, $fn=3);
+	    rotate([0,0,180]) circle(r=(2*longEdge + shortEdge)/3*sqrt3-roundness*2, $fn=3);
 	}
 	circle( r= roundness);	
     }
@@ -125,12 +125,12 @@ module baseShape(){
 		translate ([cos(i)*ballSeperateDistance/2, sin(i)*ballSeperateDistance/2,0])
 		translate ([sin(i)*(baseShapeRadius/2-roundness/2), -cos(i)*(baseShapeRadius/2-roundness/2),0]) 
 		rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) pillar();  
-
+		
 		translate ([-cos(i)*ballSeperateDistance/2, -sin(i)*ballSeperateDistance/2,0])
 		translate ([sin(i)*(baseShapeRadius/2-roundness/2), -cos(i)*(baseShapeRadius/2-roundness/2),0]) 
 		rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) pillar();
 	    }
-
+	    
 	    
 	    
 	}
@@ -159,7 +159,7 @@ module baseShape(){
 	scale([1.1,1.1,1])grooveShape();
 	
 	// Minus micro switch mount place
-
+	
 	translate([grooveHoleRadius +2,0, 0]) cube([8,24,upperHeight+middleHeight+downHeight+3],center=true);
 	// Minus two holes for m2.5 screws
 	translate([grooveHoleRadius +2, -microSwitchHolesDistance/2, -2.3]) rotate([0,90,0]) cylinder(r=m25ScrewRadius, h=30,center=true);
@@ -173,7 +173,7 @@ module baseShape(){
 	
 	// Minus some preset holes for wires pass through
 	translate([-longEdge*sqrt3/3+10,0,0]) rotate([0,35,0]) roundedBox([m3ScrewRadius*3+1, m3ScrewRadius*5.5+1,  100], m3ScrewRadius, center=true);
-
+	
 	// Minus an inner channel to let the wire pass through for microSwitch
 	translate([-2,0,-1]) difference() {
 	    cylinder(r=grooveHoleRadius + 7.5, h= 4,center=true);
@@ -181,10 +181,10 @@ module baseShape(){
 	    translate([50,0,0]) cube([100,20,5],center=true);
 	}
 	translate([-2,0,-2]) for (i=[45:45:315]) {
-		rotate([0,0,-i]) translate([grooveHoleRadius+6.5,0,0]) cube([m3ScrewRadius*2.5, m3ScrewRadius*3, 6], center=true);}
-	    
+	    rotate([0,0,-i]) translate([grooveHoleRadius+6.5,0,0]) cube([m3ScrewRadius*2.5, m3ScrewRadius*3, 6], center=true);}
+	
 	// Leave fans Mounting holes
-	    
+	
 	for (i=[30:120:260]) {
 	    translate ([cos(i)*mountingHoleDistance/2, sin(i)*mountingHoleDistance/2,0])
 	    translate ([sin(i)*(ballSeperateDistance/2+3), -cos(i)*(ballSeperateDistance/2+3),0]) 
@@ -197,7 +197,7 @@ module baseShape(){
 	}
 	
 	
-
+	
 	
 	
     }
@@ -211,7 +211,7 @@ module baseShape(){
 
 
 module lid(){
-
+    
     difference(){
 	union(){
 	    hull(){
