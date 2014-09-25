@@ -605,9 +605,9 @@ module skeletonSideR(){
 
 //// expose
 distance=0;
-//translate([0,-distance,distance])rampsLcdFace();
-//translate([0,distance,distance])rampsTopFace();
-//translate([0,distance,0])rampsBackFace();
+translate([0,-distance,distance])rampsLcdFace();
+translate([0,distance,distance])rampsTopFace();
+translate([0,distance,0])rampsBackFace();
 translate([0,0,-distance])rampsBottomFace();
 
 // left side cover
