@@ -8,7 +8,7 @@ use <../Fans/fans.scad>
 use <../HeatbedSupport/heatbedSupport.scad>
 use <../PowerBrickMount/powerBrickMount.scad>
 
-expose = 150;
+expose = 0;
 l = 330 +expose;
 r = l/2+110 + expose;
 h = 700;
