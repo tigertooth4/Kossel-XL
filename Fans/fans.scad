@@ -148,7 +148,7 @@ module fanSupport(){
 
 
 
-translate([0,0,-20]) hotendFan();
+%translate([0,0,-20]) hotendFan();
 
 translate([0,0,-20]) secondFan();
 

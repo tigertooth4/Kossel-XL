@@ -244,8 +244,8 @@ module YCarriageWithScrewHoles(rr){
 }
 
 
-//color([0.2,0.2,0.2])wingWithScrewHoles(9);
+color([0.2,0.2,0.2])wingWithScrewHoles(9);
 
-color([1,0,0])YCarriageWithScrewHoles(9);
+//color([1,0,0])YCarriageWithScrewHoles(9);
 
 % translate([extrusionX, extrusionY, extrusionZ]) cube([20,80,20]);

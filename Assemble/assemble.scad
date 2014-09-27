@@ -8,7 +8,7 @@ use <../Fans/fans.scad>
 use <../HeatbedSupport/heatbedSupport.scad>
 use <../PowerBrickMount/powerBrickMount.scad>
 
-expose = 0;
+expose = 150;
 l = 330 +expose;
 r = l/2+110 + expose;
 h = 700;
@@ -22,8 +22,8 @@ rotate([0,0,i])
 translate([-r*cos(30),-r*sin(30),0])rotate([0,0, -60])
 translate([0,80,-expose])
 {
-    color("red") frame_motor();
-    color("black")translate([0,0,-28-expose/2])bottomCover(20);
+    color("red") import("../Frame/frameMotor.stl");
+    color("black")translate([0,0,22-expose/2]) import("../Frame/bottomCover.stl");
 }
 
 // draw the top frame
@@ -32,7 +32,7 @@ for(i=[0,120,240])
 rotate([0,0,i])
 translate([-r*cos(30),-r*sin(30),0])rotate([0,0, -60])
 translate([0,80,h-10+expose])
-frame_top();
+import("../Frame/frameTop.stl");
 
 // draw the bottom aluminum
 color("silver")
@@ -57,8 +57,11 @@ translate([-r+60, 0,h/2-10]) extrusion(h+20);
 for(i=[0,120,240])
 rotate([0,0,i])
 translate([0,r-75,h/3*2])rotate([90,0,0]){
-    translate([0,0,expose/2])wingWithScrewHoles(9);
-    YCarriageWithScrewHoles(9);
+    color([0.3,0.3,0.3])translate([6,0,expose/2])import("../Carriage/wing.stl");
+    color([0.3,0.3,0.3])import("../Carriage/Ycarriage.stl");
+
+    color("white")translate([5,0,0])for(i=[0,120,240])rotate([0,0,i])translate([-25,0,-16 + expose/3])
+    import("../Carriage/wheel.stl");
 }
 
 // draw the belts
@@ -99,25 +102,33 @@ translate([0,-l*cos(60)+55,h-30]){
 
 // draw the effector
 translate([0,0, h/3])
-
 rotate([0,0,30])
 {
-    color([0.3,0.3,0.3])    baseShape();
-    color([0.3,0.3,0.3])    translate([0,0, 8 + expose/2]) lid();
-    color("silver") translate([0,0,15]) hotend();
+    color([0.3,0.3,0.3]) import("../Effector/base.stl");
+    color([0.3,0.3,0.3])    translate([0,0,  expose/2]) import("../Effector/lid.stl");
+    rotate([0,0,60]){
+	color("silver") translate([0,0,expose/2])import("../Fans/hotend.stl");
+	color("red") translate([0,0,expose/2])import("../Fans/hotendFan.stl");
+	color("red") translate([0,0,expose/2])import("../Fans/secondFan.stl");
+    }
 }
 
 //draw the rod
-color([0.2,0.2,0.2])
+
 translate([0,0,h/3+30+expose/2])
 for(i=[0,120,240])
-rotate([0,35,-30+i])
+rotate([0,34,-30+i])
 for(y=[-23,23])
-translate([40,y+expose/2,0])
+translate([38,y+expose/2,0])
 {
-    translate([0,0,260+expose/4])connector_sml();
-    translate([0,0,expose/4])cylinder(r=2,h=260);
-    rotate([180,0,0])connector_sml();
+    color([0.2,0.2,0.2])
+    {
+	translate([0,0,255+expose/4])import("../Rods/rod_connector.stl");
+	translate([0,0,expose/4])cylinder(r=2,h=260);
+	translate([0,0,5])rotate([180,0,0])import("../Rods/rod_connector.stl");
+    }
+    translate([0,0,262]) color("silver") sphere(r=4, $fn=30, center=true);
+    translate([0,0,-2])color("silver") sphere(r=4,$fn=30,center=true);
 
 }
 
@@ -135,9 +146,9 @@ translate([0,0,30+expose/3]){
 // draw the plate
 color([0.65,0.55,0]) translate([0,0,35+expose/3])
 cylinder(r=114.3 , h=10, $fn=60);
-color("silver") translate([0,0, 50+expose/2])
+color([0.98,0.98,0.98]) translate([0,0, 50+expose/2])
 union(){
-    cylinder(r=130, h =3, $fn=30);
+    cylinder(r=130, h =3, $fn=60);
     for(i=[0,120,240]) rotate([0,0,-30+i])
     translate([125,0,0])minkowski(){
 	cube([13,100,2],center=true);
