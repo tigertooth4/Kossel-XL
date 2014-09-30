@@ -1,5 +1,5 @@
 mountDistance= 137;
-boardMountDistance = 85;
+boardMountDistance = 86.75;
 thick=10;
 extrusion=20;
 
@@ -15,7 +15,7 @@ circleInnerRadius=40-extrusion/2;
 
 hbsupportDistance = 150;
 
-centerArmLength=hbsupportDistance/2;
+centerArmLength=hbsupportDistance/2 +5;
 
 module hbsupport(){
 
@@ -34,7 +34,7 @@ module hbsupport(){
 	    // spring fixing poles
 	    for(i=[-boardMountDistance/2,boardMountDistance/2])
 	    translate([i,extrusion/3,7]){
-		cylinder(r1=3.5,r2=3, h=20,center=true,$fn=20);
+		//cylinder(r1=3.5,r2=3, h=20,center=true,$fn=20);
 		cylinder(r1=extrusion/2, r2=extrusion/2-2,h=5, center=true, $fn=40);
 	    }
 	    
@@ -57,13 +57,13 @@ module hbsupport(){
 	for(i=[-boardMountDistance/2,boardMountDistance/2])
 	translate([i,extrusion/3,0]){
 	    cylinder(r=m3ScrewRadius, h=thick*5,center=true,$fn=20);
-	    translate([0,0,-1])cylinder(r=m3ScrewHeaderRadius, h=thick, center=true, $fn=20);
+	    translate([0,0,-5])cylinder(r=m3ScrewHeaderRadius, h=thick*.5, center=true, $fn=20);
 	}
 
 	// for space to make the connections
 	translate([0,3*extrusion,thick/2])
 	{
-	    cylinder(r=extrusion*.5, h=thick,center=true, $fn=10);
+	    cylinder(r=extrusion*.8, h=thick,center=true, $fn=10);
 	    cylinder(r=m3ScrewRadius, h=thick*5,center=true, $fn=20);
 	    translate([0,0,-thick])cylinder(r=m3NutRadius,h=thick/3, center=true, $fn=6);
 	}
@@ -107,13 +107,13 @@ module centerSupport(){
 	// spaces and m3 screw holes at the end of the arm
 	for(i=[0,120,240])rotate([0,0,i+30])
 	{
-	    hull() for(j=[0,5])
+	    hull() for(j=[-2,10])
 	    translate([0,-centerArmLength+j,0])cylinder(r=m3ScrewRadius,h=thick*2,$fn=20);
 
-	    hull() for(j=[0,5])
+	    hull() for(j=[-2,10])
 	    translate([0,-centerArmLength+j,-.5])cylinder(r=extrusion*.5, h=thick/2+1,$fn=6);
 
-	    hull() for(j=[0,5])
+	    hull() for(j=[-2,10])
 	    translate([0,-centerArmLength+j,thick*.75])cylinder(r=m3ScrewHeaderRadius,h=3,$fn=20);
 	}
 
@@ -124,6 +124,6 @@ module centerSupport(){
 }
 
 //for(i=[0,120,240])rotate([0,0,i+30])translate([0, -hbsupportDistance,thick/2])
-//hbsupport();
+hbsupport();
 
-centerSupport();
+//centerSupport();

@@ -8,7 +8,7 @@ use <../Fans/fans.scad>
 use <../HeatbedSupport/heatbedSupport.scad>
 use <../PowerBrickMount/powerBrickMount.scad>
 
-expose = 150;
+expose = 0;
 l = 330 +expose;
 r = l/2+110 + expose;
 h = 700;
@@ -108,8 +108,8 @@ rotate([0,0,30])
     color([0.3,0.3,0.3])    translate([0,0,  expose/2]) import("../Effector/lid.stl");
     rotate([0,0,60]){
 	color("silver") translate([0,0,expose/2])import("../Fans/hotend.stl");
-	color("red") translate([0,0,expose/2])import("../Fans/hotendFan.stl");
-	color("red") translate([0,0,expose/2])import("../Fans/secondFan.stl");
+	color("black") translate([0,0,expose/2])import("../Fans/hotendFan.stl");
+	color("black") translate([0,0,expose/2])import("../Fans/secondFan.stl");
     }
 }
 
@@ -133,15 +133,18 @@ translate([38,y+expose/2,0])
 }
 
 // draw the power box
-color("blue")translate([l*cos(60)-50,-l*cos(60)+15,0]){
-powerBoxRight();
-powerBoxLeft();}
+color([0.2,0.2,0.2])translate([l*cos(60)-50,-l*cos(60)+15,0]){
+import("../PowerBox/powerBoxRight.stl");
+import("../PowerBox/powerBoxLeft.stl");
+}
 
 // draw the heatbed support
 translate([0,0,30+expose/3]){
-    color("blue") translate([0,0,-5])rotate([0,0,30])centerSupport();
-    color("black") for(i=[0,120,240])rotate([0,0,60+i])translate([0,-130-expose/3,0])hbsupport();
+    color("black") translate([0,0,-5])rotate([0,0,30])import("../HeatbedSupport/centerSupport.stl");
+    color("black") for(i=[0,120,240])rotate([0,0,60+i])translate([0,-130-expose/3,0])
+    import("../HeatbedSupport/hbsupport.stl");
 }
+
 
 // draw the plate
 color([0.65,0.55,0]) translate([0,0,35+expose/3])
@@ -156,14 +159,14 @@ union(){
 }
 
 // draw the power brick and mounts
-color("silver") cube([113,215,45],center=true);
-color("black") {
-translate([-113/2+32,215/2-32,-30-expose/2])rotate([0,0,-30])mount(68);
-translate([-113/2+32,-215/2+32,-30-expose/2]) rotate([0,0,90]) mount(45);
+//color("silver") cube([113,215,45],center=true);
+//color("black") {
+//translate([-113/2+32,215/2-32,-30-expose/2])rotate([0,0,-30])mount(68);
+//translate([-113/2+32,-215/2+32,-30-expose/2]) rotate([0,0,90]) mount(45);
 
-translate([113/2-32,215/2-32,-30-expose/2])rotate([0,0,-150])mount(68);
-translate([113/2-32,-215/2+32,-30-expose/2]) rotate([0,0,90]) mount(45);
+//translate([113/2-32,215/2-32,-30-expose/2])rotate([0,0,-150])mount(68);
+//translate([113/2-32,-215/2+32,-30-expose/2]) rotate([0,0,90]) mount(45);
 
-}
+//}
 }
 
