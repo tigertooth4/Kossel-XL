@@ -25,8 +25,8 @@ module hotendFan(){
     difference()
     {
 	//basic shape
-	union(){
-	    roundedBox([20,30,25],2,center=true);
+	translate([-2.5,0,0])union(){
+	    translate([3,0,0])roundedBox([22,30,25],2,center=true);
 	    //minkowski(){cube([13,28,25],center=true); cylinder(r=2,h=2,center=true,$fn=10);}
 	    translate([-8,0,0])rotate([0,90,0]) hull()
 	    {
@@ -34,21 +34,19 @@ module hotendFan(){
 		translate([0,0,-3]) roundedBox([25,25,0.5],2,center=true);
 		
 	    }
-	    // second fan mount
-	    translate([-14,-22,7.4])cube([24,15,5]);
-
 	}
 
 	// leave mounting space
 
 	cylinder(r=hotendRadius, h= 40,center=true);
+	translate([15,0,0])cube([20,22,40],center=true);
 
 	// leave air holes
-	rotate([0,90,0]) cylinder(r=8, h=40, center=true);
+	scale([1,11/10,1])rotate([0,90,0]) cylinder(r=10, h=40, center=true);
 
 	// leave mounting holes
-	for (i=[45:90:360]) {
-	    rotate([i, 0,0]) translate([-10,10,0]) rotate([0,90,0])cylinder(r=1.5, h=30, center=true, $fn=10);
+	for (i=[0:90:360]) {
+	    rotate([i, 0,0]) translate([0,10.25,-10.25]) rotate([0,90,0])cylinder(r=1.2, h=40, center=true, $fn=10);
 	}
 
 	// screws
@@ -56,6 +54,9 @@ module hotendFan(){
 	translate([-10,-19,11])cylinder(r=2.5, h=4,$fn=10);
 	translate([5,-19,0])cylinder(r=1.25,h=20,$fn=10);
 	translate([5,-19,11])cylinder(r=2.5,h=4,$fn=10);
+
+	//horizontal screws
+	translate([7.5,0,-8])rotate([90,0,0])cylinder(r=1.25,h=40,$fn=10,center=true);
     }
 }
 
@@ -69,26 +70,26 @@ module secondFan(){
     difference(){
 	union(){
 	    //mount
-	    translate([-14,-23,2])cube([23,9,3]);
+	    translate([-14,-25,0])cube([23,14,5]);
 	    
 	    // base part
-	    translate([0,-32,-6])rotate([-140,0,0])
+	    translate([0,-35,-6])rotate([-140,0,0])
 	    hull(){
 		minkowski(){
 		    cube([26,26,5],center=true);
 		    cylinder(r=2,h=1);
 		}
-		translate([0,0,30]) cube([10,7,1],center=true);
+		translate([0,0,35]) cube([10,7,1],center=true);
 	    }
 	}
 	
 	union(){
-	    translate([0,-32,-6])rotate([-140,0,0]) hull(){
+	    translate([0,-35,-6])rotate([-140,0,0]) hull(){
 		minkowski(){
 		    cube([17,17,6],center=true);
 		    cylinder(r=2,h=3);
 		}
-		translate([0,0,30]) cube([6,5,2],center=true);
+		translate([0,0,35]) cube([6,5,2],center=true);
 	    }
 	}
 
@@ -97,7 +98,7 @@ module secondFan(){
 	translate([5,-17,0])cylinder(r=1.25,h=100,$fn=10);
 
 	// mount screws holes
-	translate([0,-32,-6])rotate([-140,0,0]) {
+	translate([0,-35,-6])rotate([-140,0,0]) {
 	    for(i=[0:90:360]) rotate([0,0,i])
 	    translate([11.5,11.5,-10]) cylinder(r=1.25, h=20,$fn=10);
 	}
@@ -107,50 +108,82 @@ module secondFan(){
 
 
 module printFan(){
-    union(){
-	difference(){
-	    hull(){
-		roundedBox([35,40,5],1,center=true,$fn=10);
-		translate([0,-12.5,-printFanHeight]) roundedBox([15,10,1],3,center=true,$fn=10); 
+    
+    difference(){
+	
+	    translate([0,0,-45])
+	    union(){
+		// First section
+		translate([19,0,15])
+		rotate([0,-10,0])
+		minkowski(){
+		    cube([2,25,25],center=true);
+		    rotate([0,90,0])cylinder(r=2,h=3,center=true,$fn=20);
+		}
+
+		hull(){
+		    translate([19,0,15])
+		    rotate([0,80,0]) cylinder(r=16,h=5,center=true,$fn=40);
+		    translate([10,0,4])  rotate([0,-10,0])
+		    union(){
+			//cube([1,18,18],center=true);
+			rotate([0,90,0])cylinder(r=10.5,h=1,center=true,$fn=60);
+		    }
+		}
+		
+		//Section section
+		hull(){
+		    translate([10,0,4]) rotate([0,-10,0])
+
+		    union(){
+			//cube([1,18,18],center=true);
+			rotate([0,90,0])cylinder(r=10.5,h=1,center=true,$fn=60);
+		    }
+
+		    
+		    translate([2,0,-4])rotate([0,-10,0])cube([1,13,4],center=true);
+		}
+		translate([17,0,30])rotate([0,-10,0])cube([3,17,15],center=true);
+
+		//mount to effector
+		hull(){
+		    translate([17,0,38])cube([1,17,4],center=true);
+		    translate([11,0,38])cube([1,23,4],center=true);
+		}
+		translate([11.5,0,38])for(i=[-17.5/2,17.5/2])translate([0,i,0])cylinder(r=4,h=4,center=true);
+
+		//pillars
+		translate([19.5,0,14.8])rotate([0,-10,0])for(i=[-12,12]) for(j=[-12,12])translate([-1,i,j])rotate([0,90,0])
+		cylinder(r=3,h=6,center=true,$fn=20);
+		// for stability
+		translate([16,0,26.5])rotate([0,-10,0])cube([5,4,20],center=true);
+	    }
+	
+	    // wind hole
+	    translate([6,0,-33])hull(){
+		translate([16,0,4])rotate([0,80,0])cylinder(r=14,h=1,$fn=30);
+		translate([-5,0,-17.5])cube([1,9,1.6],center=true);
 	    }
 	    
-	    hull(){
-		translate([0,-3,1]) roundedBox([30,30,5],1,center=true,$fn=10);
-		translate([0,-12.5,-printFanHeight-5]) cube([8,3,3],center=true); 
-	    }
-	}
-	translate([0,35/2+2,0])
-	rotate([90,0,0])roundedBox([35,5,20],1);
+	    translate([10,0,-10])for(i=[-17.5/2,17.5/2])
+	    //screw hole for effector mounting
+	    translate([0,i,0])rotate([0,30,0])cylinder(r=1.25,h=20,center=true,$fn=10);
+
+	    //screw holes for fan
+	    translate([15,0,-31])rotate([0,-10,0])for(i=[-12,12]) for(j=[-12,12])translate([5,i,j])rotate([0,90,0])
+	    cylinder(r=1.25,h=10,center=true,$fn=10);
     }
 }
 
 
-module fanSupport(){
-    difference(){
-	union(){
-	    cube([20, 28, 3]);
-	    //translate([7, 0,-7])cube([5,28, 10]);
-	}
-	// leave two holes
-	translate([5,5,0]) cylinder(r=1.25, h =30, center=true);
-	translate([5,23,0]) cylinder(r=1.25, h =30, center=true);
 
-	translate([15,4,0]) cylinder(r=1.25, h =30, center=true);
-	translate([15,24,0]) cylinder(r=1.25, h =30, center=true);
-
-    }
-	
-
-}
-
-
-%translate([0,0,10]) hotend();
+%translate([0,0,20]) hotend();
 
 
 
 %translate([0,0,-20]) hotendFan();
 
-translate([0,0,-20]) secondFan();
+translate([5,0,0])printFan();
 
 
 

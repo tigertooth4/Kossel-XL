@@ -108,8 +108,8 @@ rotate([0,0,30])
     color([0.3,0.3,0.3])    translate([0,0,  expose/2]) import("../Effector/lid.stl");
     rotate([0,0,60]){
 	color("silver") translate([0,0,expose/2])import("../Fans/hotend.stl");
-	color("black") translate([0,0,expose/2])import("../Fans/hotendFan.stl");
-	color("black") translate([0,0,expose/2])import("../Fans/secondFan.stl");
+	color("black") translate([0,0,expose/2])rotate([0,0,-110])import("../Fans/hotendFan.stl");
+	color("black") translate([0,0,expose/2])rotate([0,0,-120])translate([7,0,0])import("../Fans/printFans.stl");
     }
 }
 

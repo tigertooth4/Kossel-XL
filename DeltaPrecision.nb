@@ -1,0 +1,1161 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     46596,       1152]
+NotebookOptionsPosition[     45168,       1100]
+NotebookOutlinePosition[     45525,       1116]
+CellTagsIndexPosition[     45482,       1113]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     SubscriptBox["r", "0"], " ", ":=", " ", "165"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[Phi]", " ", ":=", " ", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"z", " ", "[", 
+       RowBox[{"x_", ",", "y_", ",", "n_"}], "]"}], ":=", 
+      FractionBox[
+       RowBox[{" ", 
+        RowBox[{"Abs", "[", 
+         RowBox[{
+          RowBox[{"c", " ", 
+           RowBox[{"Sin", "[", 
+            FractionBox[
+             RowBox[{"2", " ", "n", " ", "\[Pi]"}], "3"], "]"}]}], "-", 
+          FractionBox["y", 
+           SubscriptBox["r", "0"]]}], "]"}]}], 
+       RowBox[{"Sqrt", "[", 
+        RowBox[{"1", "-", 
+         RowBox[{
+          SuperscriptBox["c", "2"], 
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"Cos", "[", 
+              FractionBox[
+               RowBox[{"2", " ", "n", " ", "\[Pi]"}], "3"], "]"}], "-", 
+             FractionBox["x", 
+              SubscriptBox["r", "0"]]}], ")"}], "2"]}], "-", 
+         RowBox[{
+          SuperscriptBox["c", "2"], 
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"Sin", "[", 
+              FractionBox[
+               RowBox[{"2", " ", "n", " ", "\[Pi]"}], "3"], "]"}], "-", 
+             FractionBox["y", 
+              SubscriptBox["r", "0"]]}], ")"}], "2"]}]}], "]"}]]}], ";"}], 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"n", ":=", "2"}], "*)"}], "\n", 
+   RowBox[{"(*", 
+    RowBox[{"Plot3D", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"z", "[", 
+         RowBox[{"x", ",", "y", ",", "0"}], "]"}], ",", 
+        RowBox[{"z", "[", 
+         RowBox[{"x", ",", "y", ",", "1"}], "]"}], ",", 
+        RowBox[{"z", "[", 
+         RowBox[{"x", ",", "y", ",", "2"}], "]"}], ",", "1"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", 
+        RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"y", ",", 
+        RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "]"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"XPerZ", "[", 
+      RowBox[{"x_", ",", "y_", ",", "n_", ",", "\[Rho]_"}], "]"}], ":=", 
+     RowBox[{"Abs", "[", 
+      FractionBox[
+       RowBox[{"Sqrt", "[", 
+        RowBox[{
+         SuperscriptBox["\[Rho]", "2"], "-", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             SubscriptBox["r", "0"], 
+             RowBox[{"Cos", "[", 
+              RowBox[{
+               FractionBox[
+                RowBox[{"2", " ", "n", " ", "\[Pi]"}], "3"], "+", "\[Phi]"}], 
+              "]"}]}], "-", "x"}], ")"}], "2"], "-", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             SubscriptBox["r", "0"], 
+             RowBox[{"Sin", "[", 
+              RowBox[{
+               FractionBox[
+                RowBox[{"2", " ", "n", " ", "\[Pi]"}], "3"], "+", "\[Phi]"}], 
+              "]"}]}], "-", "y"}], ")"}], "2"]}], "]"}], 
+       RowBox[{
+        RowBox[{
+         SubscriptBox["r", "0"], 
+         RowBox[{"Cos", "[", 
+          RowBox[{
+           FractionBox[
+            RowBox[{"2", " ", "n", " ", "\[Pi]"}], "3"], "+", "\[Phi]"}], 
+          "]"}]}], "-", "x"}]], "]"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"YPerZ", "[", 
+      RowBox[{"x_", ",", "y_", ",", "n_", ",", "\[Rho]_"}], "]"}], ":=", 
+     RowBox[{"Abs", "[", 
+      FractionBox[
+       RowBox[{"Sqrt", "[", 
+        RowBox[{
+         SuperscriptBox["\[Rho]", "2"], "-", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             SubscriptBox["r", "0"], 
+             RowBox[{"Cos", "[", 
+              RowBox[{
+               FractionBox[
+                RowBox[{"2", " ", "n", " ", "\[Pi]"}], "3"], "+", "\[Phi]"}], 
+              "]"}]}], "-", "x"}], ")"}], "2"], "-", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             SubscriptBox["r", "0"], 
+             RowBox[{"Sin", "[", 
+              RowBox[{
+               FractionBox[
+                RowBox[{"2", " ", "n", " ", "\[Pi]"}], "3"], "+", "\[Phi]"}], 
+              "]"}]}], "-", "y"}], ")"}], "2"]}], "]"}], 
+       RowBox[{
+        RowBox[{
+         SubscriptBox["r", "0"], 
+         RowBox[{"Sin", "[", 
+          RowBox[{
+           FractionBox[
+            RowBox[{"2", " ", "n", " ", "\[Pi]"}], "3"], "+", "\[Phi]"}], 
+          "]"}]}], "-", "y"}]], "]"}]}], ";"}], "\n", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"Plot3D", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Max", "[", 
+          RowBox[{
+           RowBox[{"XPerZ", "[", 
+            RowBox[{"x", ",", "y", ",", "0", ",", "\[Rho]"}], "]"}], ",", 
+           RowBox[{"XPerZ", "[", 
+            RowBox[{"x", ",", "y", ",", "1", ",", "\[Rho]"}], "]"}], ",", 
+           RowBox[{"XPerZ", "[", 
+            RowBox[{"x", ",", "y", ",", "2", ",", "\[Rho]"}], "]"}]}], "]"}], 
+         ",", "1", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", 
+         RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"y", ",", 
+         RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", "Automatic"}]}], "]"}], "\n", 
+     RowBox[{"Plot3D", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Max", "[", 
+          RowBox[{
+           RowBox[{"YPerZ", "[", 
+            RowBox[{"x", ",", "y", ",", "0", ",", "\[Rho]"}], "]"}], ",", 
+           RowBox[{"YPerZ", "[", 
+            RowBox[{"x", ",", "y", ",", "1", ",", "\[Rho]"}], "]"}], ",", 
+           RowBox[{"YPerZ", "[", 
+            RowBox[{"x", ",", "y", ",", "2", ",", "\[Rho]"}], "]"}]}], "]"}], 
+         ",", "1", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", 
+         RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"y", ",", 
+         RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", "Automatic"}]}], "]"}]}], "*)"}], 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.616286233278371*^9, 3.616286269089229*^9}, {
+   3.616288069603922*^9, 3.61628826710002*^9}, {3.616288445929113*^9, 
+   3.616288578235715*^9}, {3.616288611857601*^9, 3.6162886435358343`*^9}, {
+   3.6162887291676807`*^9, 3.6162888233455544`*^9}, {3.6162889052310047`*^9, 
+   3.616288915568252*^9}, {3.6162893822615128`*^9, 3.616289382426093*^9}, {
+   3.616289423825857*^9, 3.616289662585533*^9}, {3.6162897138077507`*^9, 
+   3.616289728501492*^9}, {3.6162898208825293`*^9, 3.616289836462638*^9}, {
+   3.6162901016578417`*^9, 3.6162902261663227`*^9}, {3.6162903822990227`*^9, 
+   3.616290458050641*^9}, {3.61629096849902*^9, 3.61629097653928*^9}, {
+   3.616291280031917*^9, 3.616291281252097*^9}, {3.61629133143935*^9, 
+   3.616291335305765*^9}, {3.61629159935153*^9, 3.616291600478476*^9}, {
+   3.616292244896563*^9, 3.616292245057528*^9}, {3.616292458870242*^9, 
+   3.6162924603582172`*^9}, {3.616292490930484*^9, 3.616292492420187*^9}, {
+   3.616292973558021*^9, 3.616292985801929*^9}, {3.6162930225892267`*^9, 
+   3.616293053243678*^9}, {3.6162959755626183`*^9, 3.616295976025278*^9}, {
+   3.61636942396561*^9, 3.616369427807622*^9}, {3.616369649083972*^9, 
+   3.616369694032646*^9}, 3.61637016045756*^9, {3.6163702578113413`*^9, 
+   3.616370291582212*^9}, {3.616370348977297*^9, 3.616370380728325*^9}, {
+   3.6163704233451643`*^9, 3.616370442391366*^9}, {3.616375335441884*^9, 
+   3.616375407335557*^9}, {3.616375484078389*^9, 3.616375484335291*^9}, {
+   3.616375593371245*^9, 3.616375595082652*^9}, 3.616375697819983*^9, {
+   3.6163759331505013`*^9, 3.61637593988972*^9}, {3.616416845106721*^9, 
+   3.616416846150309*^9}, {3.616417046846039*^9, 3.61641704727932*^9}, 
+   3.616417089777629*^9}],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"Plot3D", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Min", "[", 
+        RowBox[{
+         RowBox[{"XPerZ", "[", 
+          RowBox[{"x", ",", "y", ",", "0", ",", "\[Rho]"}], "]"}], ",", 
+         RowBox[{"XPerZ", "[", 
+          RowBox[{"x", ",", "y", ",", "1", ",", "\[Rho]"}], "]"}], ",", 
+         RowBox[{"XPerZ", "[", 
+          RowBox[{"x", ",", "y", ",", "2", ",", "\[Rho]"}], "]"}]}], "]"}], 
+       ",", "1", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", "Automatic"}]}], "]"}], "\n", 
+   RowBox[{"Plot3D", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Min", "[", 
+        RowBox[{
+         RowBox[{"YPerZ", "[", 
+          RowBox[{"x", ",", "y", ",", "0", ",", "\[Rho]"}], "]"}], ",", 
+         RowBox[{"YPerZ", "[", 
+          RowBox[{"x", ",", "y", ",", "1", ",", "\[Rho]"}], "]"}], ",", 
+         RowBox[{"YPerZ", "[", 
+          RowBox[{"x", ",", "y", ",", "2", ",", "\[Rho]"}], "]"}]}], "]"}], 
+       ",", "1", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", "Automatic"}]}], "]"}]}], 
+  "*)"}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQB2IQnfVC43DLx1eO328tOg6iQ4I3r2gF0rHGyQdBtPfu
+vddB9K8u9xcguqKw+g2I7lMt/ACil8Sq/gbRJ/hes7UB6ZQUdUEQLa9fJASi
+A+JO+IDovkVnwXRO7q9AEL1hz6V8EC1x07IMRFvyCFSA6HW2c5pB9Luzfa0g
+mot36zIQ3RLkug1Ez5h48iSIvjXP8TKI/vmdX7gdZL+joAiILmdltALReoIa
+YFqDP88BRF858RJM77F/nQii1/rzJ4HopRvmbALRrtcXgmm2m9FnQXRLWTeY
+bjsWexFE6xT1gmn/2xt5O4B0+kpLfhD96dYlYRC9d9YWaRDt84+5tRNIm23g
+A9PnYtKS14L8H/oSTAMAFhHV3g==
+  "]],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"DensityPlot", "[", 
+    RowBox[{
+     RowBox[{"Max", "[", 
+      RowBox[{
+       RowBox[{"XPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "0", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"XPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "1", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"XPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "2", ",", "\[Rho]"}], "]"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", "Automatic"}]}], "]"}], "\n", 
+   RowBox[{"DensityPlot", "[", 
+    RowBox[{
+     RowBox[{"Max", "[", 
+      RowBox[{
+       RowBox[{"YPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "0", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"YPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "1", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"YPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "2", ",", "\[Rho]"}], "]"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", "Automatic"}]}], "]"}]}], 
+  "*)"}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQB2IQnfVC43DLx1eO328tOg6iQ4I3r2gF0rHGyQdBtPfu
+vddB9K8u9xcguqKw+g2I7lMt/ACil8Sq/gbRJ/hes7UB6ZQUdUEQLa9fJASi
+A+JO+IDovkVnwXRO7q9AEL1hz6V8EC1x07IMRFvyCFSA6HW2c5pB9Luzfa0g
+mot36zIQ3RLkug1Ez5h48iSIvjXP8TKI/vmdX7gdZL+joAiILmdltALReoIa
+YFqDP88BRF858RJM77F/nQii1/rzJ4HopRvmbALRrtcXgmm2m9FnQXRLWTeY
+bjsWexFE6xT1gmn/2xt5O4B0+kpLfhD96dYlYRDtcS9UHkTveCnY2gmkTebL
+gOmY1mWpa4H0/c2caSAaAAt/1X0=
+  "]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"DensityPlot", "[", 
+    RowBox[{
+     RowBox[{"Min", "[", 
+      RowBox[{
+       RowBox[{"XPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "0", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"XPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "1", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"XPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "2", ",", "\[Rho]"}], "]"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", "Automatic"}]}], "]"}], "*)"}], "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"DensityPlot", "[", 
+     RowBox[{
+      RowBox[{"XPerZ", "[", 
+       RowBox[{"x", ",", "y", ",", "0", ",", "\[Rho]"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", 
+        RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"y", ",", 
+        RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+      RowBox[{"PlotLegends", "\[Rule]", "Automatic"}]}], "]"}], "\n", 
+    RowBox[{"DensityPlot", "[", 
+     RowBox[{
+      RowBox[{"XPerZ", "[", 
+       RowBox[{"x", ",", "y", ",", "1", ",", "\[Rho]"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", 
+        RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"y", ",", 
+        RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+      RowBox[{"PlotLegends", "\[Rule]", "Automatic"}]}], "]"}], "\n", 
+    RowBox[{"DensityPlot", "[", 
+     RowBox[{
+      RowBox[{"XPerZ", "[", 
+       RowBox[{"x", ",", "y", ",", "2", ",", "\[Rho]"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", 
+        RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"y", ",", 
+        RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+      RowBox[{"PlotLegends", "\[Rule]", "Automatic"}]}], "]"}]}], "*)"}], 
+  "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"MinXPerZ", "[", 
+      RowBox[{"x_", ",", "y_", ",", "\[Rho]_"}], "]"}], ":=", 
+     RowBox[{"Min", "[", 
+      RowBox[{
+       RowBox[{"XPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "0", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"XPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "1", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"XPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "2", ",", "\[Rho]"}], "]"}]}], "]"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"MinYPerZ", "[", 
+      RowBox[{"x_", ",", "y_", ",", "\[Rho]_"}], "]"}], ":=", 
+     RowBox[{"Min", "[", 
+      RowBox[{
+       RowBox[{"YPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "0", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"YPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "1", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"YPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "2", ",", "\[Rho]"}], "]"}]}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"MaxXPerZ", "[", 
+      RowBox[{"x_", ",", "y_", ",", "\[Rho]_"}], "]"}], ":=", 
+     RowBox[{"Max", "[", 
+      RowBox[{
+       RowBox[{"XPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "0", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"XPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "1", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"XPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "2", ",", "\[Rho]"}], "]"}]}], "]"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"MaxYPerZ", "[", 
+      RowBox[{"x_", ",", "y_", ",", "\[Rho]_"}], "]"}], ":=", 
+     RowBox[{"Max", "[", 
+      RowBox[{
+       RowBox[{"YPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "0", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"YPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "1", ",", "\[Rho]"}], "]"}], ",", 
+       RowBox[{"YPerZ", "[", 
+        RowBox[{"x", ",", "y", ",", "2", ",", "\[Rho]"}], "]"}]}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"AveXPerZ", "[", 
+      RowBox[{"x_", ",", "y_", ",", "\[Rho]_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"Sum", "[", 
+       RowBox[{
+        RowBox[{"XPerZ", "[", 
+         RowBox[{"x", ",", "y", ",", "i", ",", "\[Rho]"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "0", ",", "2"}], "}"}]}], "]"}], "/", "3"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"AveYPerZ", "[", 
+      RowBox[{"x_", ",", "y_", ",", "\[Rho]_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"Sum", "[", 
+       RowBox[{
+        RowBox[{"YPerZ", "[", 
+         RowBox[{"x", ",", "y", ",", "i", ",", "\[Rho]"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "0", ",", "2"}], "}"}]}], "]"}], "/", "3"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"VarXPerZ", "[", 
+      RowBox[{"x_", ",", "y_", ",", "\[Rho]_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"Sum", "[", 
+       RowBox[{
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"XPerZ", "[", 
+            RowBox[{"x", ",", "y", ",", "i", ",", "\[Rho]"}], "]"}], "-", 
+           RowBox[{"AveXPerZ", "[", 
+            RowBox[{"x", ",", "y", ",", "\[Rho]"}], "]"}]}], ")"}], "2"], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "0", ",", "2"}], "}"}]}], "]"}], "/", "3"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"VarYPerZ", "[", 
+      RowBox[{"x_", ",", "y_", ",", "\[Rho]_"}], "]"}], ":=", 
+     RowBox[{
+      RowBox[{"Sum", "[", 
+       RowBox[{
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"YPerZ", "[", 
+            RowBox[{"x", ",", "y", ",", "i", ",", "\[Rho]"}], "]"}], "-", 
+           RowBox[{"AveYPerZ", "[", 
+            RowBox[{"x", ",", "y", ",", "\[Rho]"}], "]"}]}], ")"}], "2"], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "0", ",", "2"}], "}"}]}], "]"}], "/", "3"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"JacobNorm", "[", 
+      RowBox[{"x_", ",", "y_", ",", "\[Rho]_"}], "]"}], ":=", 
+     RowBox[{"Sqrt", "[", 
+      RowBox[{"Sum", "[", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          SuperscriptBox[
+           RowBox[{"XPerZ", "[", 
+            RowBox[{"x", ",", "y", ",", "i", ",", "\[Rho]"}], "]"}], "2"], 
+          "+", 
+          SuperscriptBox[
+           RowBox[{"YPerZ", "[", 
+            RowBox[{"x", ",", "y", ",", "i", ",", "\[Rho]"}], "]"}], "2"]}], 
+         ")"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "0", ",", "2"}], "}"}]}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"(*", 
+     RowBox[{"Animate", "[", 
+      RowBox[{
+       RowBox[{"DensityPlot", "[", 
+        RowBox[{
+         RowBox[{"MinXPerZ", "[", 
+          RowBox[{"x", ",", "y", ",", "\[Rho]"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", 
+           RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"y", ",", 
+           RowBox[{"-", "100"}], ",", "100"}], "}"}]}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\[Rho]", ",", "200", ",", "300"}], "}"}], ",", 
+       RowBox[{"AnimationRunning", " ", "\[Rule]", " ", "False"}]}], "]"}], 
+     "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"minimalPrecision", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"Animate", "[", 
+       RowBox[{
+        RowBox[{"DensityPlot", "[", 
+         RowBox[{
+          RowBox[{"Min", "[", 
+           RowBox[{
+            RowBox[{"MinXPerZ", "[", 
+             RowBox[{"x", ",", "y", ",", "\[Rho]"}], "]"}], ",", 
+            RowBox[{"MinYPerZ", "[", 
+             RowBox[{"x", ",", "y", ",", "\[Rho]"}], "]"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", 
+            RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"y", ",", 
+            RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+          RowBox[{"PlotLegends", "\[Rule]", "Automatic"}], ",", 
+          RowBox[{"PlotRange", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "2"}], "}"}]}]}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"\[Rho]", ",", "150", ",", "300"}], "}"}], ",", 
+        RowBox[{"AnimationRunning", " ", "\[Rule]", " ", "False"}]}], "]"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"Animate", "[", 
+       RowBox[{
+        RowBox[{"DensityPlot", "[", 
+         RowBox[{
+          RowBox[{"Min", "[", 
+           RowBox[{
+            RowBox[{"MaxXPerZ", "[", 
+             RowBox[{"x", ",", "y", ",", "\[Rho]"}], "]"}], ",", 
+            RowBox[{"MaxYPerZ", "[", 
+             RowBox[{"x", ",", "y", ",", "\[Rho]"}], "]"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", 
+            RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"y", ",", 
+            RowBox[{"-", "100"}], ",", "100"}], "}"}], ",", 
+          RowBox[{"PlotLegends", "\[Rule]", "Automatic"}], ",", 
+          RowBox[{"PlotRange", "\[Rule]", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "2"}], "}"}]}]}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"\[Rho]", ",", "150", ",", "300"}], "}"}], ",", 
+        RowBox[{"AnimationRunning", " ", "\[Rule]", " ", "False"}]}], 
+       "]"}]}]}], "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{"Export", "[", 
+      RowBox[{"\"\<miniPrecision.gif\>\"", ",", " ", "minimalPrecision"}], 
+      "]"}], "*)"}], "*)"}], "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.616286233278371*^9, 3.616286269089229*^9}, {
+   3.616288069603922*^9, 3.61628826710002*^9}, {3.616288445929113*^9, 
+   3.616288578235715*^9}, {3.616288611857601*^9, 3.6162886435358343`*^9}, {
+   3.6162887291676807`*^9, 3.6162888233455544`*^9}, {3.6162889052310047`*^9, 
+   3.616288915568252*^9}, {3.6162893822615128`*^9, 3.616289382426093*^9}, {
+   3.616289423825857*^9, 3.616289662585533*^9}, {3.6162897138077507`*^9, 
+   3.616289728501492*^9}, {3.6162898208825293`*^9, 3.616289836462638*^9}, {
+   3.6162901016578417`*^9, 3.6162902261663227`*^9}, {3.6162903822990227`*^9, 
+   3.616290458050641*^9}, {3.61629096849902*^9, 3.61629097653928*^9}, {
+   3.616291280031917*^9, 3.616291281252097*^9}, {3.61629133143935*^9, 
+   3.616291335305765*^9}, {3.61629159935153*^9, 3.616291600478476*^9}, {
+   3.616292244896563*^9, 3.616292245057528*^9}, {3.616292458870242*^9, 
+   3.6162924603582172`*^9}, {3.616292490930484*^9, 3.616292492420187*^9}, {
+   3.616292973558021*^9, 3.616292985801929*^9}, {3.6162930225892267`*^9, 
+   3.616293147912189*^9}, {3.6162934433471107`*^9, 3.616293502823883*^9}, {
+   3.6162935655192547`*^9, 3.616293596047154*^9}, {3.6162936677293863`*^9, 
+   3.616293674337336*^9}, {3.616293726122085*^9, 3.6162937736004744`*^9}, {
+   3.616293820708297*^9, 3.616293842655878*^9}, {3.616293968445737*^9, 
+   3.616293994509267*^9}, {3.616294152336175*^9, 3.6162941837662077`*^9}, {
+   3.6162942862600117`*^9, 3.616294321712323*^9}, {3.616294549006222*^9, 
+   3.616294554190308*^9}, {3.616294825968315*^9, 3.61629483397805*^9}, {
+   3.616295211693759*^9, 3.6162952295230503`*^9}, {3.616295283157593*^9, 
+   3.616295317043207*^9}, {3.6162953555369587`*^9, 3.616295367109118*^9}, {
+   3.616295470760543*^9, 3.616295471567315*^9}, {3.6162955994706697`*^9, 
+   3.6162956014977694`*^9}, {3.616295976995781*^9, 3.616295978730974*^9}, {
+   3.616296076280388*^9, 3.616296076601932*^9}, {3.6162963984648*^9, 
+   3.616296402017148*^9}, {3.616296889080021*^9, 3.6162968897658587`*^9}, {
+   3.616298340132681*^9, 3.616298344380993*^9}, {3.616298401918111*^9, 
+   3.6162984398231497`*^9}, {3.616322230268565*^9, 3.616322239542886*^9}, {
+   3.616368899310131*^9, 3.616369079536393*^9}, {3.616369461720847*^9, 
+   3.616369488378172*^9}, {3.6163699015580072`*^9, 3.616369916226695*^9}, {
+   3.616374872980117*^9, 3.616374965184661*^9}, 3.616375005264353*^9, 
+   3.616375131120116*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Animate", "[", 
+  RowBox[{
+   RowBox[{"DensityPlot", "[", 
+    RowBox[{
+     RowBox[{"AveXPerZ", "[", 
+      RowBox[{"x", ",", "y", ",", "\[Rho]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "80"}], ",", "80"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "80"}], ",", "80"}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", "Automatic"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "4"}], "}"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Rho]", ",", "150", ",", "300"}], "}"}], ",", 
+   RowBox[{"AnimationRunning", " ", "\[Rule]", " ", "False"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Animate", "[", 
+  RowBox[{
+   RowBox[{"DensityPlot", "[", 
+    RowBox[{
+     RowBox[{"AveYPerZ", "[", 
+      RowBox[{"x", ",", "y", ",", "\[Rho]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "80"}], ",", "80"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "80"}], ",", "80"}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", "Automatic"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "4"}], "}"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Rho]", ",", "150", ",", "300"}], "}"}], ",", 
+   RowBox[{"AnimationRunning", " ", "\[Rule]", " ", "False"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.6162958625181227`*^9, 3.616295932470587*^9}, 
+   3.616295978837134*^9, {3.616369105513376*^9, 3.6163691110030403`*^9}, {
+   3.616369244314642*^9, 3.6163693038674917`*^9}, {3.616369820442939*^9, 
+   3.616369823888763*^9}, {3.616369982643278*^9, 3.6163700103706713`*^9}, {
+   3.616374307694696*^9, 3.616374333473135*^9}, {3.616416925700995*^9, 
+   3.6164169315223417`*^9}, {3.6164169622963963`*^9, 
+   3.6164169641716747`*^9}, {3.616417115756279*^9, 3.616417117049591*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`\[Rho]$$ = 193.25, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`\[Rho]$$], 150, 300}}, Typeset`size$$ = {
+    407., {175., 179.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`\[Rho]$1635580$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`\[Rho]$$ = 150}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`\[Rho]$$, $CellContext`\[Rho]$1635580$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> DensityPlot[
+        $CellContext`AveXPerZ[$CellContext`x, $CellContext`y, $CellContext`\
+\[Rho]$$], {$CellContext`x, -80, 80}, {$CellContext`y, -80, 80}, PlotLegends -> 
+        Automatic, PlotRange -> {0, 4}], 
+      "Specifications" :> {{$CellContext`\[Rho]$$, 150, 300, AnimationRunning -> 
+         False, AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{452., {211., 217.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.6163700314501543`*^9, 3.616370299003787*^9, 3.6163703875212603`*^9, 
+   3.616370451727729*^9, {3.616374317822413*^9, 3.616374339311644*^9}, 
+   3.6163750570290737`*^9, 3.616375152911837*^9, 3.616375300604596*^9, 
+   3.616375416065958*^9, 3.616375492718811*^9, 3.616375602780881*^9, 
+   3.616375728429893*^9, 3.616375971577186*^9, 3.6164168609688063`*^9, 
+   3.616416934277759*^9, 3.6164169652932453`*^9, 3.616417052648068*^9, {
+   3.6164170961409883`*^9, 3.6164171179446993`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`\[Rho]$$ = 189.3, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`\[Rho]$$], 150, 300}}, Typeset`size$$ = {
+    407., {175., 179.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`\[Rho]$1635601$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`\[Rho]$$ = 150}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`\[Rho]$$, $CellContext`\[Rho]$1635601$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> DensityPlot[
+        $CellContext`AveYPerZ[$CellContext`x, $CellContext`y, $CellContext`\
+\[Rho]$$], {$CellContext`x, -80, 80}, {$CellContext`y, -80, 80}, PlotLegends -> 
+        Automatic, PlotRange -> {0, 4}], 
+      "Specifications" :> {{$CellContext`\[Rho]$$, 150, 300, AnimationRunning -> 
+         False, AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{452., {211., 217.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.6163700314501543`*^9, 3.616370299003787*^9, 3.6163703875212603`*^9, 
+   3.616370451727729*^9, {3.616374317822413*^9, 3.616374339311644*^9}, 
+   3.6163750570290737`*^9, 3.616375152911837*^9, 3.616375300604596*^9, 
+   3.616375416065958*^9, 3.616375492718811*^9, 3.616375602780881*^9, 
+   3.616375728429893*^9, 3.616375971577186*^9, 3.6164168609688063`*^9, 
+   3.616416934277759*^9, 3.6164169652932453`*^9, 3.616417052648068*^9, {
+   3.6164170961409883`*^9, 3.616417118178955*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Animate", "[", 
+  RowBox[{
+   RowBox[{"DensityPlot", "[", 
+    RowBox[{
+     RowBox[{"VarXPerZ", "[", 
+      RowBox[{"x", ",", "y", ",", "\[Rho]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "80"}], ",", "80"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "80"}], ",", "80"}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", "Automatic"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "10"}], "}"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Rho]", ",", "150", ",", "300"}], "}"}], ",", 
+   RowBox[{"AnimationRunning", " ", "\[Rule]", " ", "False"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Animate", "[", 
+  RowBox[{
+   RowBox[{"DensityPlot", "[", 
+    RowBox[{
+     RowBox[{"VarYPerZ", "[", 
+      RowBox[{"x", ",", "y", ",", "\[Rho]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "80"}], ",", "80"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "80"}], ",", "80"}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", "Automatic"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "10"}], "}"}]}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Rho]", ",", "150", ",", "300"}], "}"}], ",", 
+   RowBox[{"AnimationRunning", " ", "\[Rule]", " ", "False"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.616369350785884*^9, 3.6163693522518*^9}, {
+   3.616369398316635*^9, 3.6163693983963537`*^9}, 3.61636953734693*^9, {
+   3.6163699250996847`*^9, 3.6163699366603317`*^9}, {3.6163700210733557`*^9, 
+   3.616370025017312*^9}, {3.616370622370323*^9, 3.616370627395154*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`\[Rho]$$ = 207.35, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`\[Rho]$$], 150, 300}}, Typeset`size$$ = {
+    411., {175., 179.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`\[Rho]$1634783$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`\[Rho]$$ = 150}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`\[Rho]$$, $CellContext`\[Rho]$1634783$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> DensityPlot[
+        $CellContext`VarXPerZ[$CellContext`x, $CellContext`y, $CellContext`\
+\[Rho]$$], {$CellContext`x, -80, 80}, {$CellContext`y, -80, 80}, PlotLegends -> 
+        Automatic, PlotRange -> {0, 10}], 
+      "Specifications" :> {{$CellContext`\[Rho]$$, 150, 300, AnimationRunning -> 
+         False, AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{456., {211., 217.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.616369356355221*^9, 3.616369399455873*^9}, 
+   3.6163695068857393`*^9, 3.616369539000758*^9, 3.6163697020525103`*^9, 
+   3.616369945468919*^9, 3.616370031917691*^9, 3.6163702996473913`*^9, 
+   3.616370388233066*^9, 3.6163704527712307`*^9, 3.616370636830452*^9, {
+   3.616374318851989*^9, 3.616374340401244*^9}, 3.616375057932365*^9, 
+   3.616375153862483*^9, 3.616375301115*^9, 3.616375417498027*^9, 
+   3.616375497736199*^9, 3.61637560321595*^9, 3.6163757289949417`*^9, 
+   3.616375972326268*^9, 3.616416861613385*^9, 3.616417053581249*^9, 
+   3.616417098976066*^9}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`\[Rho]$$ = 150, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`\[Rho]$$], 150, 300}}, Typeset`size$$ = {
+    411., {175., 179.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`\[Rho]$1634804$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`\[Rho]$$ = 150}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`\[Rho]$$, $CellContext`\[Rho]$1634804$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> DensityPlot[
+        $CellContext`VarYPerZ[$CellContext`x, $CellContext`y, $CellContext`\
+\[Rho]$$], {$CellContext`x, -80, 80}, {$CellContext`y, -80, 80}, PlotLegends -> 
+        Automatic, PlotRange -> {0, 10}], 
+      "Specifications" :> {{$CellContext`\[Rho]$$, 150, 300, AnimationRunning -> 
+         False, AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{456., {211., 217.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.616369356355221*^9, 3.616369399455873*^9}, 
+   3.6163695068857393`*^9, 3.616369539000758*^9, 3.6163697020525103`*^9, 
+   3.616369945468919*^9, 3.616370031917691*^9, 3.6163702996473913`*^9, 
+   3.616370388233066*^9, 3.6163704527712307`*^9, 3.616370636830452*^9, {
+   3.616374318851989*^9, 3.616374340401244*^9}, 3.616375057932365*^9, 
+   3.616375153862483*^9, 3.616375301115*^9, 3.616375417498027*^9, 
+   3.616375497736199*^9, 3.61637560321595*^9, 3.6163757289949417`*^9, 
+   3.616375972326268*^9, 3.616416861613385*^9, 3.616417053581249*^9, 
+   3.6164170995104923`*^9}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.6163750213892813`*^9, 3.6163750241833076`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Animate", "[", 
+  RowBox[{
+   RowBox[{"DensityPlot", "[", 
+    RowBox[{
+     RowBox[{"JacobNorm", "[", 
+      RowBox[{"x", ",", "y", ",", "\[Rho]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "80"}], ",", "80"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "80"}], ",", "80"}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", "Automatic"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[Rho]", ",", "150", ",", "300"}], "}"}], ",", 
+   RowBox[{"AnimationRunning", " ", "\[Rule]", " ", "False"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.616375038384152*^9, 3.6163750454118643`*^9}, {
+   3.616375143430167*^9, 3.616375144390592*^9}, {3.616375202457884*^9, 
+   3.616375224261092*^9}, 3.6163764098422127`*^9}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`\[Rho]$$ = 185.15, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`\[Rho]$$], 150, 300}}, Typeset`size$$ = {
+    412., {175., 179.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`\[Rho]$1634912$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`\[Rho]$$ = 150}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`\[Rho]$$, $CellContext`\[Rho]$1634912$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> DensityPlot[
+        $CellContext`JacobNorm[$CellContext`x, $CellContext`y, $CellContext`\
+\[Rho]$$], {$CellContext`x, -80, 80}, {$CellContext`y, -80, 80}, PlotLegends -> 
+        Automatic], 
+      "Specifications" :> {{$CellContext`\[Rho]$$, 150, 300, AnimationRunning -> 
+         False, AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{457., {211., 217.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.616375060763845*^9, 3.616375156711101*^9, 
+  3.6163753020205193`*^9, 3.6163754209420033`*^9, 3.61637550171131*^9, 
+  3.6163756039775*^9, 3.616375730528845*^9, 3.6163759745279417`*^9, 
+  3.616376423274338*^9, 3.616416863132079*^9, 3.616417055508258*^9, 
+  3.616417100644796*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"N", "[", " ", 
+    RowBox[{"ArcTan", "[", 
+     RowBox[{"1", "/", "1.9099"}], "]"}], "]"}], "/", "Pi"}], " ", "*", " ", 
+  "180"}]], "Input",
+ CellChangeTimes->{
+  3.616384159323451*^9, {3.616386212597797*^9, 3.6163862605621767`*^9}}],
+
+Cell[BoxData["27.6359977979903`"], "Output",
+ CellChangeTimes->{{3.616386223794854*^9, 3.61638626092785*^9}, 
+   3.616416863712604*^9, 3.616417056626997*^9, 3.616417101460503*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{"Csc", "[", 
+   RowBox[{"ArcTan", "[", 
+    RowBox[{"1", "/", "1.9099"}], "]"}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.6163863307757673`*^9, 3.616386368192807*^9}, {
+  3.6163864090609303`*^9, 3.616386440260013*^9}}],
+
+Cell[BoxData["2.155856676590538`"], "Output",
+ CellChangeTimes->{{3.616386345494668*^9, 3.61638636862755*^9}, 
+   3.616386441210471*^9, 3.6164168637626057`*^9, 3.616417056744022*^9, 
+   3.6164171015732727`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"N", "[", 
+    RowBox[{"ArcTan", "[", 
+     RowBox[{"Pi", "/", "10"}], "]"}], "]"}], "/", "Pi"}], "*", 
+  "180"}]], "Input",
+ CellChangeTimes->{{3.616402829526998*^9, 3.6164028589006443`*^9}}],
+
+Cell[BoxData["17.440594490511874`"], "Output",
+ CellChangeTimes->{{3.616402848491871*^9, 3.616402859543199*^9}, 
+   3.6164168638119287`*^9, 3.616417056893609*^9, 3.616417101627626*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{"2", " ", 
+   FractionBox[
+    RowBox[{"Sqrt", "[", 
+     RowBox[{"1", "+", 
+      FractionBox["100", 
+       RowBox[{"Pi", "^", "2"}]]}], "]"}], 
+    RowBox[{"1", "+", 
+     RowBox[{"Sqrt", "[", 
+      RowBox[{"1", "+", 
+       FractionBox["100", 
+        RowBox[{"Pi", "^", "2"}]]}], "]"}]}]], "175"}], "]"}]], "Input",
+ CellChangeTimes->{{3.616416401771864*^9, 3.6164164270131607`*^9}, {
+  3.616416734717918*^9, 3.616416739483571*^9}, {3.6164173627471724`*^9, 
+  3.616417385473525*^9}, {3.616417626912037*^9, 3.616417628725665*^9}}],
+
+Cell[BoxData["269.28943215434884`"], "Output",
+ CellChangeTimes->{3.616416428256219*^9, 3.616416740538075*^9, 
+  3.6164168638613977`*^9, 3.616417056975562*^9, 3.616417101677781*^9, 
+  3.616417395886281*^9, 3.6164176300176067`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"N", "[", " ", 
+  RowBox[{
+   FractionBox[
+    RowBox[{
+     RowBox[{"Sqrt", "[", 
+      RowBox[{"1", "+", 
+       FractionBox["100", 
+        RowBox[{"Pi", "^", "2"}]]}], "]"}], "-", "1"}], 
+    RowBox[{"1", "+", 
+     RowBox[{"Sqrt", "[", 
+      RowBox[{"1", "+", 
+       FractionBox["100", 
+        RowBox[{"Pi", "^", "2"}]]}], "]"}]}]], "175"}], "]"}]], "Input",
+ CellChangeTimes->{{3.616416803984457*^9, 3.616416813564513*^9}, {
+  3.616417388996368*^9, 3.6164173930345182`*^9}, {3.616417681383503*^9, 
+  3.616417682636745*^9}}],
+
+Cell[BoxData["94.28943215434889`"], "Output",
+ CellChangeTimes->{3.616416814954548*^9, 3.616416863911419*^9, 
+  3.616417057060313*^9, 3.61641710172864*^9, 3.6164173981681137`*^9, 
+  3.616417686464113*^9}]
+}, Open  ]]
+},
+WindowSize->{1680, 935},
+WindowMargins->{{Automatic, 77}, {Automatic, 0}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 20, \
+2012)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 8049, 207, 345, "Input"],
+Cell[8609, 229, 1990, 52, 46, "Input"],
+Cell[10602, 283, 1830, 46, 46, "Input"],
+Cell[12435, 331, 12251, 294, 505, "Input"],
+Cell[CellGroupData[{
+Cell[24711, 629, 1933, 47, 46, "Input"],
+Cell[26647, 678, 2543, 47, 445, "Output"],
+Cell[29193, 727, 2540, 47, 479, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[31770, 779, 1730, 44, 46, "Input"],
+Cell[33503, 825, 2629, 48, 445, "Output"],
+Cell[36135, 875, 2628, 48, 445, "Output"]
+}, Open  ]],
+Cell[38778, 926, 96, 1, 28, "Input"],
+Cell[CellGroupData[{
+Cell[38899, 931, 806, 20, 28, "Input"],
+Cell[39708, 953, 2317, 44, 445, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[42062, 1002, 281, 8, 28, "Input"],
+Cell[42346, 1012, 179, 2, 28, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[42562, 1019, 267, 6, 28, "Input"],
+Cell[42832, 1027, 210, 3, 28, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[43079, 1035, 238, 7, 28, "Input"],
+Cell[43320, 1044, 184, 2, 28, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[43541, 1051, 579, 15, 65, "Input"],
+Cell[44123, 1068, 230, 3, 28, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[44390, 1076, 555, 16, 65, "Input"],
+Cell[44948, 1094, 204, 3, 62, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

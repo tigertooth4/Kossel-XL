@@ -1,4 +1,4 @@
-mountDistance= 137;
+mountDistance= 133;
 boardMountDistance = 86.75;
 thick=10;
 extrusion=20;
@@ -33,7 +33,7 @@ module hbsupport(){
 
 	    // spring fixing poles
 	    for(i=[-boardMountDistance/2,boardMountDistance/2])
-	    translate([i,extrusion/3,7]){
+	    translate([i,extrusion/3,thick-2]){
 		//cylinder(r1=3.5,r2=3, h=20,center=true,$fn=20);
 		cylinder(r1=extrusion/2, r2=extrusion/2-2,h=5, center=true, $fn=40);
 	    }
@@ -56,8 +56,8 @@ module hbsupport(){
 	// m4 screw hole to mount the plate
 	for(i=[-boardMountDistance/2,boardMountDistance/2])
 	translate([i,extrusion/3,0]){
-	    cylinder(r=m3ScrewRadius, h=thick*5,center=true,$fn=20);
-	    translate([0,0,-5])cylinder(r=m3ScrewHeaderRadius, h=thick*.5, center=true, $fn=20);
+	    cylinder(r=m3ScrewRadius+.5, h=thick*5,center=true,$fn=20);
+	    translate([0,0,-2])cylinder(r=m3ScrewHeaderRadius+1, h=thick*.8, center=true, $fn=20);
 	}
 
 	// for space to make the connections
@@ -111,7 +111,7 @@ module centerSupport(){
 	    translate([0,-centerArmLength+j,0])cylinder(r=m3ScrewRadius,h=thick*2,$fn=20);
 
 	    hull() for(j=[-2,10])
-	    translate([0,-centerArmLength+j,-.5])cylinder(r=extrusion*.5, h=thick/2+1,$fn=6);
+	    translate([0,-centerArmLength+j,-2])cylinder(r=extrusion*.5, h=thick/2+1,$fn=6);
 
 	    hull() for(j=[-2,10])
 	    translate([0,-centerArmLength+j,thick*.75])cylinder(r=m3ScrewHeaderRadius,h=3,$fn=20);
@@ -124,6 +124,6 @@ module centerSupport(){
 }
 
 //for(i=[0,120,240])rotate([0,0,i+30])translate([0, -hbsupportDistance,thick/2])
-hbsupport();
+//hbsupport();
 
-//centerSupport();
+centerSupport();
