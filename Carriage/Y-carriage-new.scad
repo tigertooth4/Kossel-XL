@@ -206,8 +206,8 @@ module anotherEnd(){
     difference(){
 	union(){
 	    //base
-	    translate([-extrudeWidth*.13,0,0])
-	    cube([extrudeWidth*.56, extrudeWidth*.8, wingThickness], true);
+	    translate([-extrudeWidth*0.055,0,0])
+	    cube([extrudeWidth*.71, extrudeWidth*.8, wingThickness], true);
 	    
 	    // base insert part
 	    // you want to make the following aligned with B
@@ -218,8 +218,15 @@ module anotherEnd(){
 	    }
 
 	    // right rectangular bound
-	    translate([0,-extrudeWidth*.4,0])
-	    cube([beltWidth/2, extrudeWidth*.8, beltWidth + wingThickness]);
+	    translate([-beltThickness-.2,-extrudeWidth*.4,0])
+	    mirror() hull(){
+		translate([-beltWidth/2, 0.1, wingThickness+beltWidth-1]) 
+		cube([beltWidth/2-beltThickness, extrudeWidth*.8, 1]);
+		
+		translate([-beltWidth*1.22, 0.1, wingThickness/2])
+		cube([beltWidth , extrudeWidth*.8, 1]);
+	    }
+	    //cube([beltWidth/2, extrudeWidth*.8, beltWidth + wingThickness]);
 
 	    // left bound
 	    translate([-beltThickness+0.2,-extrudeWidth*.405,0])
@@ -228,7 +235,7 @@ module anotherEnd(){
 		cube([beltWidth/2-beltThickness, extrudeWidth*.8, 1]);
 		
 		translate([-beltWidth*1.22, 0.1, wingThickness/2])
-		cube([beltWidth*1.15 , extrudeWidth*.8, 1]);
+		cube([beltWidth , extrudeWidth*.8, 1]);
 	    }
 	    
 	    for (i = [-2:2:12]) translate([-beltThickness-3+.2, i-extrudeWidth*.25,0 ])
@@ -238,7 +245,7 @@ module anotherEnd(){
 	translate([-extrudeWidth*.25, -extrudeWidth*.45,0])
 	rotate([-90,0,0])cylinder(r=m25ScrewRadius+.2, h=60,center=true);
 
-	translate([-extrudeWidth*.25, -extrudeWidth*.6,0])
+	translate([-extrudeWidth*.25, -extrudeWidth*.7,0])
 	rotate([-90,0,0])cylinder(r=m25ScrewHeadRadius, h=20,center=true);
 
 	translate([-.5,-extrudeWidth*.5,beltWidth+9])rotate([-90,0,0])cylinder(r=4,h=extrudeWidth,$fn=4);

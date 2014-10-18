@@ -64,46 +64,6 @@ module hotendFan(){
 
 printFanHeight = 40;
 
-module secondFan(){
-    
-    
-    difference(){
-	union(){
-	    //mount
-	    translate([-14,-25,0])cube([23,14,5]);
-	    
-	    // base part
-	    translate([0,-35,-6])rotate([-140,0,0])
-	    hull(){
-		minkowski(){
-		    cube([26,26,5],center=true);
-		    cylinder(r=2,h=1);
-		}
-		translate([0,0,35]) cube([10,7,1],center=true);
-	    }
-	}
-	
-	union(){
-	    translate([0,-35,-6])rotate([-140,0,0]) hull(){
-		minkowski(){
-		    cube([17,17,6],center=true);
-		    cylinder(r=2,h=3);
-		}
-		translate([0,0,35]) cube([6,5,2],center=true);
-	    }
-	}
-
-	// second fan mount hole
-	translate([-10,-17,0])cylinder(r=1.25,h=100,$fn=10);
-	translate([5,-17,0])cylinder(r=1.25,h=100,$fn=10);
-
-	// mount screws holes
-	translate([0,-35,-6])rotate([-140,0,0]) {
-	    for(i=[0:90:360]) rotate([0,0,i])
-	    translate([11.5,11.5,-10]) cylinder(r=1.25, h=20,$fn=10);
-	}
-    }
-}
 
 
 
@@ -124,24 +84,24 @@ module printFan(){
 		hull(){
 		    translate([19,0,15])
 		    rotate([0,80,0]) cylinder(r=16,h=5,center=true,$fn=40);
-		    translate([10,0,4])  rotate([0,-10,0])
+		    translate([10,0,10])  //rotate([0,-10,0])
 		    union(){
 			//cube([1,18,18],center=true);
-			rotate([0,90,0])cylinder(r=10.5,h=1,center=true,$fn=60);
+			rotate([0,90,0])cylinder(r=15,h=1,center=true,$fn=60);
 		    }
 		}
 		
 		//Section section
 		hull(){
-		    translate([10,0,4]) rotate([0,-10,0])
+		    translate([10,0,10]) //rotate([0,-10,0])
 
 		    union(){
 			//cube([1,18,18],center=true);
-			rotate([0,90,0])cylinder(r=10.5,h=1,center=true,$fn=60);
+			rotate([0,90,0])cylinder(r=15,h=1,center=true,$fn=60);
 		    }
 
 		    
-		    translate([2,0,-4])rotate([0,-10,0])cube([1,13,4],center=true);
+		    translate([2,0,-4])rotate([0,-10,0])cube([1,13,5],center=true);
 		}
 		translate([17,0,30])rotate([0,-10,0])cube([3,17,15],center=true);
 
@@ -160,9 +120,16 @@ module printFan(){
 	    }
 	
 	    // wind hole
-	    translate([6,0,-33])hull(){
-		translate([16,0,4])rotate([0,80,0])cylinder(r=14,h=1,$fn=30);
-		translate([-5,0,-17.5])cube([1,9,1.6],center=true);
+	    union(){
+		translate([6,0,-33])hull(){
+		    translate([16,0,4])rotate([0,80,0])cylinder(r=14,h=1,$fn=30);
+		    translate([5,0,-3.5])rotate([0,85,0])cylinder(r=11,h=1,$fn=30);
+		}
+		
+		translate([6,0,-33])hull(){
+		    translate([5,0,-3.5])rotate([0,85,0])cylinder(r=11,h=1,$fn=30);
+		    translate([-5,0,-17])cube([1,9,1.6],center=true);
+		}
 	    }
 	    
 	    translate([10,0,-10])for(i=[-17.5/2,17.5/2])
@@ -183,7 +150,7 @@ module printFan(){
 
 %translate([0,0,-20]) hotendFan();
 
-translate([5,0,0])printFan();
+translate([10,0,0])printFan();
 
 
 
