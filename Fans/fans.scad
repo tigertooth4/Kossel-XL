@@ -100,23 +100,25 @@ module printFan(){
 			rotate([0,90,0])cylinder(r=15,h=1,center=true,$fn=60);
 		    }
 
-		    
-		    translate([2,0,-4])rotate([0,-10,0])cube([1,13,5],center=true);
+		    // wind mouse
+		    translate([3,0,-2])rotate([0,-60,0])cube([1,17,9],center=true);
 		}
-		translate([17,0,30])rotate([0,-10,0])cube([3,17,15],center=true);
+
+		
+		translate([17,0,30])rotate([0,-15,0])cube([3,17,15],center=true);
 
 		//mount to effector
 		hull(){
-		    translate([17,0,38])cube([1,17,4],center=true);
-		    translate([11,0,38])cube([1,23,4],center=true);
+		    translate([16,0,38])cube([1,17,4],center=true);
+		    translate([10,0,38])cube([1,23,4],center=true);
 		}
-		translate([11.5,0,38])for(i=[-17.5/2,17.5/2])translate([0,i,0])cylinder(r=4,h=4,center=true);
+		translate([10,0,38])for(i=[-17.5/2,17.5/2])translate([0,i,0])cylinder(r=4,h=4,center=true);
 
 		//pillars
 		translate([19.5,0,14.8])rotate([0,-10,0])for(i=[-12,12]) for(j=[-12,12])translate([-1,i,j])rotate([0,90,0])
 		cylinder(r=3,h=6,center=true,$fn=20);
 		// for stability
-		translate([16,0,26.5])rotate([0,-10,0])cube([5,4,20],center=true);
+		translate([16,0,27])rotate([0,-15,0])cube([5,4,20],center=true);
 	    }
 	
 	    // wind hole
@@ -128,13 +130,13 @@ module printFan(){
 		
 		translate([6,0,-33])hull(){
 		    translate([5,0,-3.5])rotate([0,85,0])cylinder(r=11,h=1,$fn=30);
-		    translate([-5,0,-17])cube([1,9,1.6],center=true);
+		    translate([-6,0,-16])cube([1,14,4],center=true);
 		}
 	    }
 	    
 	    translate([10,0,-10])for(i=[-17.5/2,17.5/2])
 	    //screw hole for effector mounting
-	    translate([0,i,0])rotate([0,30,0])cylinder(r=1.25,h=20,center=true,$fn=10);
+	    translate([-2,i,0])rotate([0,30,0])cylinder(r=1.25,h=20,center=true,$fn=10);
 
 	    //screw holes for fan
 	    translate([15,0,-31])rotate([0,-10,0])for(i=[-12,12]) for(j=[-12,12])translate([5,i,j])rotate([0,90,0])

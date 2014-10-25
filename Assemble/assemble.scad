@@ -104,12 +104,13 @@ translate([0,-l*cos(60)+55,h-30]){
 translate([0,0, h/3])
 rotate([0,0,30])
 {
-    color([0.3,0.3,0.3]) import("../Effector/base.stl");
-    color([0.3,0.3,0.3])    translate([0,0,  expose/2]) import("../Effector/lid.stl");
+    color([0.3,0.3,0.3])rotate([0,0,-120]) import("../Effector/base.stl");
+    color([0.3,0.3,0.3])rotate([0,0,-120]) translate([0,0,  expose/2]) import("../Effector/lid.stl");
     rotate([0,0,60]){
-	color("silver") translate([0,0,expose/2])import("../Fans/hotend.stl");
-	color("black") translate([0,0,expose/2])rotate([0,0,-110])import("../Fans/hotendFan.stl");
-	color("black") translate([0,0,expose/2])rotate([0,0,-120])translate([7,0,0])import("../Fans/printFans.stl");
+	//color("silver") translate([0,0,expose/2])import("../Fans/hotend.stl"); color("silver")
+	color("silver")translate([0,0,expose/2+2]) rotate([0,0,-90])import("../E3D_v4_Hot_end_Model/E3Dhotend.stl");
+	//color("black") translate([0,0,expose/2])rotate([0,0,-110])import("../Fans/hotendFan.stl");
+	color("black") translate([0,0,expose/2])rotate([0,0,-120])translate([7,0,0])import("../Fans/printFan.stl");
     }
 }
 
@@ -133,14 +134,16 @@ translate([38,y+expose/2,0])
 }
 
 // draw the power box
-color([0.2,0.2,0.2])translate([l*cos(60)-50,-l*cos(60)+15,0]){
-import("../PowerBox/powerBoxRight.stl");
-import("../PowerBox/powerBoxLeft.stl");
+color("black")translate([l*cos(60)-100,l*sin(60)-90,0])
+rotate([0,0,120])
+{
+    import("../PowerBox/powerBoxRight.stl");
+    import("../PowerBox/powerBoxLeft.stl");
 }
 
 // draw the heatbed support
 translate([0,0,30+expose/3]){
-    color("black") translate([0,0,-5])rotate([0,0,30])import("../HeatbedSupport/centerSupport.stl");
+    color("grey") translate([0,0,-5])rotate([0,0,30])import("../HeatbedSupport/centerSupport.stl");
     color("black") for(i=[0,120,240])rotate([0,0,60+i])translate([0,-130-expose/3,0])
     import("../HeatbedSupport/hbsupport.stl");
 }
