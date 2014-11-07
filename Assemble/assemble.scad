@@ -8,7 +8,7 @@ use <../Fans/fans.scad>
 use <../HeatbedSupport/heatbedSupport.scad>
 use <../PowerBrickMount/powerBrickMount.scad>
 
-expose = 0;
+expose = 100;
 l = 330 +expose;
 r = l/2+110 + expose;
 h = 700;
@@ -27,12 +27,15 @@ translate([0,80,-expose])
 }
 
 // draw the top frame
-color("red")
+
 for(i=[0,120,240])
 rotate([0,0,i])
 translate([-r*cos(30),-r*sin(30),0])rotate([0,0, -60])
 translate([0,80,h-10+expose])
-import("../Frame/frameTop.stl");
+{
+    color("red")import("../Frame/frameTop.stl");
+    color("red")translate([0,0,-1+expose]) import("../Frame/topCover.stl");
+}
 
 // draw the bottom aluminum
 color("silver")
@@ -144,7 +147,7 @@ rotate([0,0,120])
 // draw the heatbed support
 translate([0,0,30+expose/3]){
     color("grey") translate([0,0,-5])rotate([0,0,30])import("../HeatbedSupport/centerSupport.stl");
-    color("black") for(i=[0,120,240])rotate([0,0,60+i])translate([0,-130-expose/3,0])
+    color("blue") for(i=[0,120,240])rotate([0,0,60+i])translate([0,-130-expose/3,0])
     import("../HeatbedSupport/hbsupport.stl");
 }
 

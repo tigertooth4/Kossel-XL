@@ -103,6 +103,7 @@ module topCover(height){
     difference(){
 	union(){
 	    hull(){
+		//lower base shape
 		intersection(){
 		    minkowski() {
 			cylinder(r=extrusion*1.5, h=0.3*height,  center=true,$fn=6);
@@ -111,109 +112,104 @@ module topCover(height){
 		    translate([0,-extrusion*1.8,0]) rotate([0,0,30]) cylinder(r=extrusion*2,h=0.3*height, center=true, $fn=6);
 		    translate([0,-1.2*extrusion,0]) cube([4*extrusion, 2*extrusion, 2*height],center=true);
 		}
-		translate([0,-extrusion, height*.6]) cylinder(r=extrusion*.6,h=0.5,center=true);
+		//upper base shape
+		translate([0,-extrusion*.6, height*.7]) //cylinder(r=extrusion*.6,h=0.5,center=true);
+		scale([0.5,0.6,1])
+		minkowski(){
+		    intersection(){
+			minkowski() {
+			    cylinder(r=extrusion*1.5, h=0.1*height,  center=true,$fn=6);
+			    cylinder(r=outRoundness, h=0.1*height, center=true, $fn=20);
+			}
+			translate([0,-extrusion*1.8,0]) rotate([0,0,30]) cylinder(r=extrusion*2,h=0.1*height, center=true, $fn=6);
+			translate([0,-1.2*extrusion,0]) cube([4*extrusion, 2*extrusion, 2*height],center=true);
+		    }
+		    cylinder(r=extrusion*.3,h=.1,center=true);
+		}
 	    }
+
+	    // Triangle part cover
+	    translate([0,.4*extrusion,0]) rotate([0,0,30])
+	    minkowski(){
+		cylinder(r=2.2*extrusion-endRoundness*2, h=.3*height-1, center=true, $fn=3);
+		cylinder(r=endRoundness, h=1, center=true, $fn=20);
+	    }
+
+	    
 	    // two wings:
-	    translate([1.7*extrusion,0.35*extrusion, 0 ])
-	    rotate([0,0,60])cube([extrusion*2,extrusion,0.3*height],center=true);
-
-
-	    translate([-1.7*extrusion,0.35*extrusion, 0 ])
-	    rotate([0,0,-60])cube([extrusion*2,extrusion,0.3*height],center=true);
-
-	}
-    
-	// leave holes for m3 screws
-	translate([0.9*extrusion, -1.4*extrusion,0]) cylinder(r=m3ScrewRadius, h=extrusion, center=true, $fn=20);
-	translate([-0.9*extrusion, -1.4*extrusion,0]) cylinder(r=m3ScrewRadius, h=extrusion, center=true, $fn=20);
-	translate([1.3*extrusion, -0.9*extrusion,0]) cylinder(r=m3ScrewRadius, h=extrusion, center=true, $fn=20);
-	translate([-1.3*extrusion, -0.9*extrusion,0]) cylinder(r=m3ScrewRadius, h=extrusion, center=true, $fn=20);
-
-	// Leave holes for m3 head
-
-	translate([0.9*extrusion, -1.4*extrusion,-.3*extrusion]) cylinder(r=m3ScrewHeadRadius, h=extrusion*.3, center=true, $fn=20);
-	translate([-0.9*extrusion, -1.4*extrusion,-.3*extrusion]) cylinder(r=m3ScrewHeadRadius, h=extrusion*.3, center=true, $fn=20);
-	translate([1.3*extrusion, -0.9*extrusion,-.3*extrusion]) cylinder(r=m3ScrewHeadRadius, h=extrusion*.3, center=true, $fn=20);
-	translate([-1.3*extrusion, -0.9*extrusion,-.3*extrusion]) cylinder(r=m3ScrewHeadRadius, h=extrusion*.3, center=true, $fn=20);
-
-	// Leave space for wiring
-
-	translate([0,-extrusion,-0.1*extrusion])
-	hull(){
-	    for(i=[0:90:270])
-	    rotate([0,0,i]) translate([extrusion*.4,extrusion*.4,-2])sphere(r=0.25*extrusion, center=true);
-
-	    //translate([0, -extrusion*.5,0.17*extrusion]) scale([1,1.3,0.5])sphere(r=0.34*extrusion, center=true);
-	    //	    translate([0.7*extrusion,-0.6*extrusion,channelDeep/2-1])cube([extrusion,channelWidth*2, channelDeep],center=true);
-	    //	    translate([-0.7*extrusion,-0.6*extrusion,channelDeep/2-1])cube([extrusion,channelWidth*2, channelDeep],center=true);
+	    for(i=[-1,1])translate([i*1.44*extrusion,0, 0 ])
+	    rotate([0,0,60*i])
+	    minkowski(){
+		cube([extrusion*2.75,extrusion*.9,0.3*height-1],center=true);
+		cylinder(r=extrusion*.1,h=1,center=true);
+	    }
 	    
 	}
-
-	translate([0.75*extrusion,-0.8*extrusion,channelDeep/2-6]) rotate([0,0,45])
-	cube([1.66*extrusion,channelWidth*3.5, channelDeep],center=true);
-	
-	translate([-0.75*extrusion,-0.8*extrusion,channelDeep/2-6]) rotate([0,0,-45])
-	cube([1.66*extrusion,channelWidth*3.5, channelDeep],center=true);
-
-
-	translate([0, extrusion, 0]) rotate([10,0,0])cube([0.5*extrusion, extrusion*1.5, 0.2*extrusion],center=true);
-
-	
-    }
-
-}
-
-
-
-/*
-module topCover(height){
-    // draw the basic shape
-    intersection(){
-	// to give a nicer cover
-	translate([0,-extrusion,0])
+    
+	// same smaller shape to remove 
+	translate([0,-extrusion*.2,-2]) scale([0.7,0.72,1])
 	union(){
-	    //translate([0,1,0])cylinder(r=0.9*extrusion, h=extrusion,center=true,$fn=30);
-	    translate([0,-0.25*extrusion,0])cube([4*extrusion,2*extrusion,extrusion],center=true);
-	}
-
-	// real main shape
-	difference(){
 	    hull(){
+		//lower base shape
 		intersection(){
 		    minkowski() {
 			cylinder(r=extrusion*1.5, h=0.3*height,  center=true,$fn=6);
 			cylinder(r=outRoundness, h=0.3*height, center=true, $fn=20);
 		    }
 		    translate([0,-extrusion*1.8,0]) rotate([0,0,30]) cylinder(r=extrusion*2,h=0.3*height, center=true, $fn=6);
+		    translate([0,-1.2*extrusion,0]) cube([4*extrusion, 2*extrusion, 2*height],center=true);
 		}
-		translate([0,-extrusion, height*.6]) cylinder(r=extrusion*.6,h=0.5,center=true);//cube([extrusion+5, extrusion+5, 0.5],center=true);
-		
-	    }
-	    // leave holes for m3 screws
-	    translate([0.9*extrusion, -1.4*extrusion,0]) cylinder(r=m3ScrewRadius, h=extrusion, center=true, $fn=20);
-	    translate([-0.9*extrusion, -1.4*extrusion,0]) cylinder(r=m3ScrewRadius, h=extrusion, center=true, $fn=20);
-	    translate([1.3*extrusion, -0.9*extrusion,0]) cylinder(r=m3ScrewRadius, h=extrusion, center=true, $fn=20);
-	    translate([-1.3*extrusion, -0.9*extrusion,0]) cylinder(r=m3ScrewRadius, h=extrusion, center=true, $fn=20);
-	    
-	    // Leave holes for m3 head
-	    
-	    translate([0.9*extrusion, -1.4*extrusion,.7*height]) cylinder(r=m3ScrewHeadRadius, h=extrusion*.3, center=true, $fn=20);
-	    translate([-0.9*extrusion, -1.4*extrusion,.7*height]) cylinder(r=m3ScrewHeadRadius, h=extrusion*.3, center=true, $fn=20);
-	    translate([1.3*extrusion, -0.9*extrusion,.7*height]) cylinder(r=m3ScrewHeadRadius, h=extrusion*.3, center=true, $fn=20);
-	    translate([-1.3*extrusion, -0.9*extrusion,.7*height]) cylinder(r=m3ScrewHeadRadius, h=extrusion*.3, center=true, $fn=20);
-	    
-	    // Leave space for wiring
-	    
-	    translate([0,-extrusion,0])
-	    for(i=[0:90:270])
-	    rotate([0,0,i]) translate([extrusion*.45,extrusion*.45,-.7*height])sphere(r=0.27*extrusion, center=true);
+		//upper base shape
+		translate([0,-extrusion*.6, height*.7]) //cylinder(r=extrusion*.6,h=0.5,center=true);
+		scale([0.6,0.6,1])
+		minkowski(){
+		    intersection(){
+			minkowski() {
+			    cylinder(r=extrusion*1.5, h=0.1*height,  center=true,$fn=6);
+			    cylinder(r=outRoundness, h=0.1*height, center=true, $fn=20);
+			}
+			translate([0,-extrusion*1.8,0]) rotate([0,0,30]) cylinder(r=extrusion*2,h=0.1*height, center=true, $fn=6);
+			translate([0,-1.2*extrusion,0]) cube([4*extrusion, 2*extrusion, 2*height],center=true);
+		    }
+		    cylinder(r=extrusion*.3,h=.1,center=true);
+		}
 
-	    translate([0, -extrusion*.5, -.5*height]) sphere(r=0.3*extrusion, center=true);
+	    }
+
+
+	    // two wings:
+	    for(i=[-1,1])
+	    translate([i*2.05*extrusion,.2*extrusion, 0 ])
+	    rotate([0,0,59*i])
+	    minkowski(){
+		cube([extrusion*2,extrusion*.5,0.3*height-1],center=true);
+		cylinder(r=extrusion*.1,h=1,center=true);
+	    }
 	    
 	}
+
+	
+	for(i=[-1,1])
+	{
+	    // leave holes for m3 screws	    
+	    translate([i*0.9*extrusion, -1.4*extrusion,0])
+	    cylinder(r=m3ScrewRadius, h=extrusion*4, center=true, $fn=20);
+
+	    translate([i*1.3*extrusion, -0.9*extrusion,0])
+	    cylinder(r=m3ScrewRadius, h=extrusion, center=true, $fn=20);
+
+	    // Leave holes for m3 head
+	    translate([i*0.9*extrusion, -1.4*extrusion,.7*extrusion])
+	    cylinder(r=m3ScrewHeadRadius, h=extrusion*.5, center=true, $fn=20);
+
+	    translate([i*1.3*extrusion, -0.9*extrusion,.4*extrusion])
+	    cylinder(r=m3ScrewHeadRadius, h=extrusion*.5, center=true, $fn=20);
+	}
+
     }
+
 }
-*/
+
 
 module frameShape(height){
     union(){
@@ -568,8 +564,9 @@ module frame_motor(){
 //color("red") frame_motor();
 //color("grey")translate([0,0,-2.5*extrusion])bottomCover(extrusion);
 
-color("red")frame_top();
-color("grey")translate([0,0,2*extrusion])topCover(extrusion);
+//color("red")frame_top();
+color("red")
+translate([0,0,0.7*extrusion])topCover(extrusion);
 
 
 

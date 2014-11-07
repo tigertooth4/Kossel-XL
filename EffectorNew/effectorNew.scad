@@ -350,7 +350,21 @@ module lowerLayerShape(){
 
 module lowerLayer()
 {
-    lowerLayerShape();
+    difference(){
+	union(){
+	    lowerLayerShape();
+	    //cylinder(r1=grooveHoleRadius+5, r2=grooveHoleRadius, h=35);
+	    //linear_extruder(height=35,center=true)scale([0.7,0.7])baseShape;
+
+	    //linear_extrude(height= 35,center = false,convexity=10,scale=upperScaleFactor) triangleShape();
+	    translate([-1,0,upperHeight]) linear_extrude(height= 10,center = false,scale=.9) scale([0.75,0.5])triangleShape();
+	    translate([-1,0,upperHeight+10]) linear_extrude(height= 10,center = false,scale=0.8) scale([0.75*.9,0.5*.9])triangleShape();
+//	    translate([0,0,-middleHeight]) rotate([180,0,0]) 
+//	    linear_extrude(height=downHeight, center = false, scale=underScaleFactor) triangleShape();
+
+	}
+	cylinder(r=grooveHoleRadius-4, h= 100, center=true);
+    }
 }
 
 

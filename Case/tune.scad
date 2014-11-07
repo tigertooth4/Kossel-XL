@@ -1,30 +1,23 @@
-surroundHeight= 8;
-radius = 12;
+surroundHeight= 10;
+radius = 6;
+innerRadius = 5.7/2;
+deep = 7;
 
-difference(){
+intersection(){
 
     union(){
 	
-	intersection(){
-	    difference(){
-		cylinder(r=radius, h=surroundHeight, center=true,$fn=60);
-		translate([0,0,-2])cylinder(r=radius-3, h=surroundHeight,center=true, $fn=60);
-		
-		for (i=[0:12:360]) rotate([0,0,i]) translate([radius+1,0,surroundHeight/2-3])
-		cube([3,1,surroundHeight],center=true);
-	    }
-	    
-	    translate([0,0,-35])sphere(r=40,$fn=60);
-	}
-	translate([0,0,-surroundHeight/2-2])
 	difference(){
-	    
-	    cylinder(r1=5.5, r2=7,h=surroundHeight, $fn = 60);
-	    translate([0,0,-.5])cylinder(r1=4, r2=2.5 ,h=surroundHeight, $fn=60);
-	    
-	    
+		cylinder(r1=radius+1.5,r2=radius, h=surroundHeight,$fn=60);
+		cylinder(r1=innerRadius+0.5, r2=innerRadius, h=deep, $fn=60);
 	}
+
+	for (i=[0:15:360]) rotate([0,0,i]) 
+		translate([radius-2,0,0])
+		cube([3,0.75,surroundHeight]);
+
     }
 
-    translate([radius/2,0,surroundHeight+3])sphere(r=8, $fn=60);
+	translate([0,0,-20])sphere(r=20+surroundHeight,$fn=60);
+
 }
