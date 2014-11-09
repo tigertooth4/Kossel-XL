@@ -145,7 +145,15 @@ module topCover(height){
 	    }
 	    
 	}
-    
+
+	// create a convex flat surface
+	translate([0,1.7*extrusion,0])
+	linear_extrude(height=0.2*extrusion,scale=1.35)
+	minkowski(){
+	    circle(r=1.0*extrusion, $fn=6);
+	    circle(r=0.2*extrusion);
+	}
+	
 	// same smaller shape to remove 
 	translate([0,-extrusion*.2,-2]) scale([0.7,0.72,1])
 	union(){
@@ -565,7 +573,7 @@ module frame_motor(){
 //color("grey")translate([0,0,-2.5*extrusion])bottomCover(extrusion);
 
 //color("red")frame_top();
-color("red")
+//color("red")
 translate([0,0,0.7*extrusion])topCover(extrusion);
 
 

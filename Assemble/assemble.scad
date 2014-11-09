@@ -1,14 +1,15 @@
 use <../Frame/frame.scad>
-use <../Carriage/Y-carriage.scad>
+/*use <../Carriage/Y-carriage.scad>
 use <../Case/RampsCase.scad>
 use <../Effector/effector.scad>
 use <../PowerBox/powerBox.scad>
 use <../Rods/rod_connector.scad>
 use <../Fans/fans.scad>
-use <../HeatbedSupport/heatbedSupport.scad>
+use <../HeatbedSupport/heatbedSupport.scad>*/
 use <../PowerBrickMount/powerBrickMount.scad>
 
-expose = 100;
+
+expose = 0;
 l = 330 +expose;
 r = l/2+110 + expose;
 h = 700;
@@ -165,14 +166,19 @@ union(){
 }
 
 // draw the power brick and mounts
-//color("silver") cube([113,215,45],center=true);
-//color("black") {
-//translate([-113/2+32,215/2-32,-30-expose/2])rotate([0,0,-30])mount(68);
-//translate([-113/2+32,-215/2+32,-30-expose/2]) rotate([0,0,90]) mount(45);
+color("silver") cube([113,215,45],center=true);
+color("black") {
+translate([-113/2+32,215/2-32,-30-expose/2])rotate([0,0,-30])mount(68);
+translate([-113/2+32,-215/2+32,-30-expose/2]) rotate([0,0,90]) mount(45);
 
-//translate([113/2-32,215/2-32,-30-expose/2])rotate([0,0,-150])mount(68);
-//translate([113/2-32,-215/2+32,-30-expose/2]) rotate([0,0,90]) mount(45);
+translate([113/2-32,215/2-32,-30-expose/2])rotate([0,0,-150])mount(68);
+translate([113/2-32,-215/2+32,-30-expose/2]) rotate([0,0,90]) mount(45);
 
-//}
+}
+
+// draw the romote bowden extruder mount
+color([0.1, 0.1, 0.1])translate([122,0, h-40+expose])rotate([90,0,-60]) import("../BowdenExtruder/extruderMount.stl");
+color([0.1, 0.1, 0.1])translate([85,-25, h-40+expose]) rotate([-90,0,-60])import("../BowdenExtruder/extruder_with_metal_nut_place_to_hold_bowden_tube.stl");
+
 }
 
