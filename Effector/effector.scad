@@ -292,8 +292,89 @@ module lid(){
     }
 }
 
+module approxSensorMount(){
+    difference(){
+	translate([15,-26,5])rotate([0,0,30])
+	{
+	    difference(){
+		union(){
+		    rotate([48,0,0])cube([30,9,4],center=true);
+		    translate([0,-3,-18])cube([22,3,35],center=true);
+		    translate([0,-2,0])cube([10,5,5],center=true);
+		    for(i=[-1,1])translate([i*10,-2,-23])cube([2.5,3,25],center=true);
+		}
+		for(i=[-1,1])translate([i*5.25,0,-15])
+		hull(){
+		    rotate([90,0,0])cylinder(r=m3ScrewRadius,h=20,center=true);
+		    translate([0,0,-16])rotate([90,0,0])cylinder(r=m3ScrewRadius,h=20,center=true);
+		}
+		
+		
+	    }
+	}
+    
+
+	for (i=[30:120:260]) {
+	    translate ([cos(i)*mountingHoleDistance/2, sin(i)*mountingHoleDistance/2,0])
+	    translate ([sin(i)*(ballSeperateDistance/2+3), -cos(i)*(ballSeperateDistance/2+3),0]) 
+	    rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) cylinder(r=m25ScrewRadius, h=30,center=true);  
+	    
+	    translate ([-cos(i)*mountingHoleDistance/2, -sin(i)*mountingHoleDistance/2,0])
+	    translate ([sin(i)*(ballSeperateDistance/2+3), -cos(i)*(ballSeperateDistance/2+3),0]) 
+	    rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) cylinder(r=m25ScrewRadius, h=30,center=true);  
+	    
+	}
+    }
+
+}
+
+
+module approxSensorMount1(){
+    difference(){
+	translate([15,-26,3])rotate([0,0,30])
+	{
+	    difference(){
+		hull(){
+		    rotate([48,0,0])cube([30,9,4],center=true);
+		    translate([0,-12,-9])cylinder(r=11, h=10,center=true);
+		    translate([0,-3,-9])cube([17,3,10],center=true);
+		    //translate([0,-2,0])cube([10,5,5],center=true);
+		}
+		translate([0,-11.5,-9])cylinder(r=9, h=30,center=true);
+		translate([0,-27,-9])cube([30,20,30],center=true);
+		    
+	    }
+	}
+    
+	scale([1.02,1.02,1.05])union(){
+	    // Draw the basic profile
+	    linear_extrude(height= upperHeight,center = false,convexity=10,scale=upperScaleFactor) triangleShape();
+	    translate([0,0,-middleHeight]) linear_extrude(height= middleHeight,center = false) triangleShape();
+	    translate([0,0,-middleHeight]) rotate([180,0,0]) 
+	    linear_extrude(height=downHeight, center = false, scale=underScaleFactor) triangleShape();
+	}
+
+	for (i=[30:120:260]) {
+	    translate ([cos(i)*mountingHoleDistance/2, sin(i)*mountingHoleDistance/2,0])
+	    translate ([sin(i)*(ballSeperateDistance/2+3), -cos(i)*(ballSeperateDistance/2+3),0]) 
+	    rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) cylinder(r=m25ScrewRadius, h=30,center=true);  
+	    
+	    translate ([-cos(i)*mountingHoleDistance/2, -sin(i)*mountingHoleDistance/2,0])
+	    translate ([sin(i)*(ballSeperateDistance/2+3), -cos(i)*(ballSeperateDistance/2+3),0]) 
+	    rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) cylinder(r=m25ScrewRadius, h=30,center=true);  
+	    
+	}
+    }
+
+}
+
+
+
 //color([0.2,0.2,0.2]) 
 baseShape();
+
+!approxSensorMount1();
+
 
 
 //color([0.5,1,0.2],0.5) 	

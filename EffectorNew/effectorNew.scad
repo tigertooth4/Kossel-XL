@@ -38,7 +38,7 @@ upperScaleFactor=0.8;
 underScaleFactor = 0.9;
 upperHeight = (1-upperScaleFactor)*longEdge/sqrt3;
 downHeight = (1-underScaleFactor)*longEdge/sqrt(2);
-middleHeight = 0.5;
+middleHeight = 2;
 
 
 grooveHoleRadius = 18.5;
@@ -303,34 +303,43 @@ module lid(){
 
 
 
-//**************************************** New ********************
+//**************************************** New **************************************************
 
-module lowerLayerShape(){
+module lowerLayerShape()
+{
+    union(){
+	// Draw the basic profile
+	linear_extrude(height= upperHeight,center = false,convexity=10,scale=upperScaleFactor)
+	triangleShape();
+	
+	translate([0,0,-middleHeight]) linear_extrude(height= middleHeight,center = false)
+	triangleShape();
+	
+	translate([0,0,-middleHeight]) rotate([180,0,0]) 
+	linear_extrude(height=downHeight, center = false, scale=underScaleFactor)
+	triangleShape();
+
+    }
+
+}
+    
+
+module lowerLayer(){
     difference(){
 	union(){
-	    difference(){
-		union(){
-		    // Draw the basic profile
-		    linear_extrude(height= upperHeight,center = false,convexity=10,scale=upperScaleFactor)
-		    triangleShape();
-
-		    translate([0,0,-middleHeight]) linear_extrude(height= middleHeight,center = false)
-		    triangleShape();
-
-		    translate([0,0,-middleHeight]) rotate([180,0,0]) 
-		    linear_extrude(height=downHeight, center = false, scale=underScaleFactor)
-		    triangleShape();
-		}
-		
-	    }
-
+	    //hull(){ 
+		lowerLayerShape();
+		//for(i=[0,1])mirror([0,i,0])rotate([0,0,-30])translate([0,baseShapeRadius*sqrt3/3-10,0])rotate([70,0,0])
+		//cube([25,10,25],center=true);
+	    //}
+	    
 	    // Draw Pillars for Ball Joints
 	    for (i=[30:120:270])
 	    for (j=[-1,1])
 	    translate ([j*cos(i)*ballSeperateDistance/2, j*sin(i)*ballSeperateDistance/2,0])
 	    translate ([sin(i)*(baseShapeRadius/2-roundness/2), -cos(i)*(baseShapeRadius/2-roundness/2),0]) 
 	    rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) pillar();  
-		
+	    
 	}
 	// Minus screw holes
 	
@@ -344,41 +353,84 @@ module lowerLayerShape(){
 	    translate([0,0,-6]) cylinder(r=m4ScrewHeadRadius, h=12, center=true);
 	}
     }
+
 }
 
 
+module upperLayer(){
 
-module lowerLayer()
+    translate([0,0,upperHeight]) linear_extrude(height= 15,center = false,scale=.9) scale([0.75,0.7])triangleShape();
+    translate([0,0,upperHeight+15]) linear_extrude(height= 12,center = false,scale=0.8) scale([0.75*.9,0.7*.9])triangleShape();
+
+    
+}
+
+module fanCone(){
+    difference(){
+	// outer profile
+	hull(){
+	    minkowski(){
+		cube([25-roundness*2,3,25-roundness*2],center=true);
+		rotate([90,0,0])cylinder(r=roundness,h=1,center=true);
+	    }
+	    translate([0,-20,2])rotate([18,0,0])
+	    minkowski(){
+		cube([24-roundness,1,15-roundness],center=true);
+		rotate([90,0,0])cylinder(r=roundness/2,h=1,center=true);
+	    }
+	}
+    }
+}
+
+module fanConeInner(){
+    // inner profile
+    hull(){
+	minkowski(){
+	    cube([20-roundness*2,4,20-roundness*2],center=true);
+	    rotate([90,0,0])cylinder(r=roundness,h=1,center=true);
+	}
+	translate([0,-20,2])rotate([18,0,0])
+	minkowski(){
+	    cube([19-roundness,1,10-roundness],center=true);
+	    rotate([90,0,0])cylinder(r=roundness/2,h=1,center=true);
+	}
+    }
+}
+
+module body()
 {
     difference(){
 	union(){
-	    lowerLayerShape();
-	    //cylinder(r1=grooveHoleRadius+5, r2=grooveHoleRadius, h=35);
-	    //linear_extruder(height=35,center=true)scale([0.7,0.7])baseShape;
+	    lowerLayer();
+	    upperLayer();
 
-	    //linear_extrude(height= 35,center = false,convexity=10,scale=upperScaleFactor) triangleShape();
-	    translate([-1,0,upperHeight]) linear_extrude(height= 10,center = false,scale=.9) scale([0.75,0.5])triangleShape();
-	    translate([-1,0,upperHeight+10]) linear_extrude(height= 10,center = false,scale=0.8) scale([0.75*.9,0.5*.9])triangleShape();
-//	    translate([0,0,-middleHeight]) rotate([180,0,0]) 
-//	    linear_extrude(height=downHeight, center = false, scale=underScaleFactor) triangleShape();
+	    for(i=[0,1])mirror([0,i,0])rotate([0,0,-30])translate([0,baseShapeRadius*sqrt3/3+3,5])rotate([70,0,0])
+	    fanCone();
 
 	}
 	cylinder(r=grooveHoleRadius-4, h= 100, center=true);
+
+	translate([-20,0,15])rotate([0,10,0])cube([30,25,25],center=true);
+
+	
+	for(i=[0,1])mirror([0,i,0])rotate([0,0,-30])translate([0,baseShapeRadius*sqrt3/3+3,5])rotate([70,0,0])
+	fanConeInner();
+
     }
 }
 
 
-lowerLayer();
+body();
 
 color("silver")
 translate([0,0,-24])
 import("./e3d-hotend-V5.stl");
 
-translate([100,0,0])
-baseShape();
+//translate([100,0,0])
+//baseShape();
 
 
 //color([0.5,1,0.2],0.5) 	
-%translate([100,0, upperHeight])
-lid();
+//%translate([100,0, upperHeight])
+//lid();
 

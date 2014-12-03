@@ -189,6 +189,66 @@ module skeleton_ramps(){
 
 //skeleton_ramps();
 
+// Modified =======================================
+module rampsCase(){
+    difference(){
+	union(){
+	    rotate([90,0,90])
+	    difference(){
+		translate([2,1,0]) linear_extrude(height=lcd_x+thick*2,center=true)  scale([1.1,1.1]) rampsSideShape();
+		linear_extrude(height=lcd_x+thick*2+10,center=true) rampsSideShape();
+		
+	    }
+	    // a tail like hole for extrutor wires
+	    translate([40,38,-22])
+	    intersection(){
+		rotate([60,0,0])cylinder(r=12, h=10,center=true, $fn=20);
+		translate([0,0,4])cube([25,15,25],center=true);
+	    }
+	
+	}
+
+	// 30x30 fans mounting hole
+	//for(i=[-40,40])
+	translate([0,42,-30])rotate([-90,0,0])union(){
+	    //cube([36,36,8],center=true);
+	    for(i=[-11.75,11.75])for(j=[-11.75,11.75])translate([i,j,0])
+	    cylinder(r=m3ScrewRadius, h=20, center=true, $fn=20);
+	    cylinder(r=14,h=10,center=true,$fn=20);
+	    translate([0,0,-0.5])minkowski(){
+		cube([30,30,4],center=true);
+		cylinder(r=2,h=1,center=true,$fn=20);
+	    }
+	}
+	
+
+	//wind holes at the bottom
+	for(i=[-60:20:60])translate([i,-60,-40])rotate([50,0,0])hull(){
+	    translate([0,0,10])rotate([90,0,0])cylinder(r=thick*2, h=20, center=true, $fn=20);
+	    translate([0,0,-10])rotate([90,0,0])cylinder(r=thick*2, h=20, center=true, $fn=20);
+	}
+
+	//wind holes at the top
+	for(i=[-40:20:40]) translate([i,0,40])rotate([55,0,0]) hull(){
+	    translate([0,0,20])rotate([90,0,0])cylinder(r=thick*2, h=20, center=true, $fn=20);
+	    translate([0,0,-20])rotate([90,0,0])cylinder(r=thick*2, h=20, center=true, $fn=20);
+	}
+
+	// a hole for extrutor wires
+	translate([40,35,-18])
+	rotate([60,0,0])cylinder(r=7, h=40,center=true, $fn=20);
+
+	// USB connector mount
+	translate([-45,35,-22])
+	{
+	    cube([42,18,16],center=true);
+	    cube([13,24,12],center=true);
+	    for(i=[15.5,-15.5])translate([i,0,0])rotate([90,0,0])cylinder(r=1.5,h=30,$fn=10,center=true);
+	}
+    }
+}
+
+/* Original one 
 module rampsCase(){
     difference(){
 	union(){
@@ -236,6 +296,9 @@ module rampsCase(){
 	translate([0,35,-16])rotate([60,0,0])cylinder(r=6, h=40,center=true, $fn=20);
     }
 }
+
+
+*/
 
 
 module rampsCaseSide(){
@@ -607,7 +670,7 @@ module skeletonSideR(){
 distance=0;
 translate([0,-distance,distance])rampsLcdFace();
 translate([0,distance,distance])rampsTopFace();
-translate([0,distance,0])rampsBackFace();
+!translate([0,distance,0])rampsBackFace();
 translate([0,0,-distance])rampsBottomFace();
 
 // left side cover
