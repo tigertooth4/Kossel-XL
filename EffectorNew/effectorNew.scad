@@ -304,6 +304,10 @@ module lid(){
 
 
 //**************************************** New **************************************************
+RadiatorRadius = 20;
+RadiatorHeight = 30;
+GrooveMountRadius = 8;
+
 
 module lowerLayerShape()
 {
@@ -341,7 +345,7 @@ module lowerLayer(){
 	    rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) pillar();  
 	    
 	}
-	// Minus screw holes
+	// screw holes
 	
 	for (i=[30:120:270])
 	for (j=[-1,1])
@@ -359,9 +363,27 @@ module lowerLayer(){
 
 module upperLayer(){
 
-    translate([0,0,upperHeight]) linear_extrude(height= 15,center = false,scale=.9) scale([0.75,0.7])triangleShape();
-    translate([0,0,upperHeight+15]) linear_extrude(height= 12,center = false,scale=0.8) scale([0.75*.9,0.7*.9])triangleShape();
+    translate([0,0,upperHeight])
+    //
+    hull(){
+	linear_extrude(height= 2,center = false) scale([0.75,0.55]) triangleShape();
+	translate([0,0,(RadiatorHeight-15)*0.5])
+	linear_extrude(height=2,center=false) scale([0.6,0.5])triangleShape();
+    }
 
+
+    //translate([0,0,upperHeight+15]) linear_extrude(height= 12,center = false,scale=0.8)
+    //scale([0.75*.9,0.6*.9])triangleShape();
+
+    translate([0,0,upperHeight+9])
+    hull(){
+	linear_extrude(height=0.5,center=false) scale([0.6, 0.5])triangleShape();
+	translate([-5,0,(RadiatorHeight-15)*.4])scale([1,0.8,1])rotate([0,0,30])
+	minkowski(){
+	    cylinder(r=16, h=5, center=true, $fn=6);
+	    cylinder(r=roundness, h=1, center=true);
+	}
+    }
     
 }
 
@@ -370,13 +392,14 @@ module fanCone(){
 	// outer profile
 	hull(){
 	    minkowski(){
-		cube([25-roundness*2,3,25-roundness*2],center=true);
-		rotate([90,0,0])cylinder(r=roundness,h=1,center=true);
+		cube([25-roundness*2,25-roundness*2,5],center=true);
+		cylinder(r=roundness,h=1,center=true);
 	    }
-	    translate([0,-20,2])rotate([18,0,0])
+	    translate([0,10,-25])
+	    rotate([5,0,0])
 	    minkowski(){
-		cube([24-roundness,1,15-roundness],center=true);
-		rotate([90,0,0])cylinder(r=roundness/2,h=1,center=true);
+		cube([24-roundness,15-roundness,1],center=true);
+		cylinder(r=roundness/2,h=1,center=true);
 	    }
 	}
     }
@@ -386,13 +409,14 @@ module fanConeInner(){
     // inner profile
     hull(){
 	minkowski(){
-	    cube([20-roundness*2,4,20-roundness*2],center=true);
-	    rotate([90,0,0])cylinder(r=roundness,h=1,center=true);
+	    cube([20-roundness*2,20-roundness*2,6],center=true);
+	    cylinder(r=roundness,h=1,center=true);
 	}
-	translate([0,-20,2])rotate([18,0,0])
+	translate([0,10,-26])
+	rotate([5,0,0])
 	minkowski(){
-	    cube([19-roundness,1,10-roundness],center=true);
-	    rotate([90,0,0])cylinder(r=roundness/2,h=1,center=true);
+	    cube([18-roundness,10-roundness,1],center=true);
+	    cylinder(r=roundness/2,h=1,center=true);
 	}
     }
 }
@@ -402,33 +426,55 @@ module body()
     difference(){
 	union(){
 	    lowerLayer();
-	    upperLayer();
+	    //upperLayer();
 
-	    for(i=[0,1])mirror([0,i,0])rotate([0,0,-30])translate([0,baseShapeRadius*sqrt3/3+3,5])rotate([70,0,0])
+	    for(i=[0,1])mirror([0,i,0])rotate([0,0,30])
+	    translate([0,-(baseShapeRadius+4)*sqrt3/3,3])
+	    rotate([10,0,0])
 	    fanCone();
-
 	}
-	cylinder(r=grooveHoleRadius-4, h= 100, center=true);
 
-	translate([-20,0,15])rotate([0,10,0])cube([30,25,25],center=true);
 
+	translate([0,0,-10])cylinder(r=grooveHoleRadius, h= 70, center=true);
+	translate([0,0,5])cylinder(r=10, h= 70, center=true);
 	
-	for(i=[0,1])mirror([0,i,0])rotate([0,0,-30])translate([0,baseShapeRadius*sqrt3/3+3,5])rotate([70,0,0])
+
+	translate([-35,0,12])rotate([0,0,0]) //fanCone();
+	minkowski(){
+	    cube([50,25-roundness*2,25-roundness*2],center=true);
+	    rotate([0,90,0])cylinder(r=roundness, h=1,center=true);
+	}
+	// wind holes
+	//translate([18,0,25])
+	for(i=[-10:5:10])
+	translate([25,i,12])
+	hull(){
+	    rotate([0,90,0])cylinder(r=1.1, h=40,center=true);
+	    translate([0,0,8-i*i*.03]) rotate([0,90,0])cylinder(r=1.1, h=40, center=true);
+	}
+	
+	for(i=[0,1])mirror([0,i,0])rotate([0,0,30])
+	translate([0,-(baseShapeRadius+4)*sqrt3/3,3])
+	rotate([10,0,0])
 	fanConeInner();
 
     }
 }
 
 
+//color("grey")
 body();
 
 color("silver")
-translate([0,0,-24])
-import("./e3d-hotend-V5.stl");
+translate([-2,0,-35])
+rotate([0,0,0])import("./e3d-v6.stl");
 
 //translate([100,0,0])
 //baseShape();
 
+//fanCone();
+
+//fanConeInner();
 
 //color([0.5,1,0.2],0.5) 	
 //%translate([100,0, upperHeight])
