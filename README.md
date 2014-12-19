@@ -12,9 +12,9 @@ Having known there are different implementations scattering around, but most of 
 
 - larger print volumn than usual Kossel (I'm using 20x20 aluminum extrusion with the bottom edge = 330mm and height = 700mm)
 - large print area ( almost the same as a standard Prusa i3 )
-- magenetic ball joints
+- magenetic ball joints 
 - lighter carriages sliding on the aluminum extrusion directly
-- probeless auto-levelling 
+- probeless auto-levelling (Using the hotend itself or a proximation sensor)
 - high precision at a reasonable speed
 - heated bed 
 - easy to assemble and maintain 

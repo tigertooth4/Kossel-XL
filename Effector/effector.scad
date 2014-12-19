@@ -40,6 +40,7 @@ upperHeight = (1-upperScaleFactor)*longEdge/sqrt3;
 downHeight = (1-underScaleFactor)*longEdge/sqrt(2);
 middleHeight = 0.5;
 
+echo("upperHeight = ",upperHeight);
 
 grooveHoleRadius = 18.5;
 grooveMountScrewRadius = 13;
@@ -329,6 +330,48 @@ module approxSensorMount(){
 }
 
 
+
+// added by xj
+module approxSensorMount2(){
+    difference(){
+	translate([15,-26,5])rotate([0,0,30])
+	{
+	    difference(){
+		minkowski(){
+		    union(){
+			translate([0,-4,-3])rotate([48,0,0])cube([22,16,2],center=true);
+			translate([0,-9.1,-19.5])cube([22,2,22],center=true);
+			//translate([0,-2,0])cube([10,5,5],center=true);
+			//for(i=[-1,1])translate([i*10,-11.5,-23])cube([2.5,3,25],center=true);
+		    }
+		    rotate([0,90,0])cylinder(r=1,h=1,center=true);
+		}
+		for(i=[-1,1])translate([i*5.25,-11,-15])
+		hull(){
+		    rotate([90,0,0])cylinder(r=m3ScrewRadius,h=20,center=true);
+		    translate([0,0,-13])rotate([90,0,0])cylinder(r=m3ScrewRadius,h=20,center=true);
+		}
+		
+		
+	    }
+	}
+    
+
+	for (i=[30:120:260]) {
+	    translate ([cos(i)*mountingHoleDistance/2, sin(i)*mountingHoleDistance/2,0])
+	    translate ([sin(i)*(ballSeperateDistance/2+3), -cos(i)*(ballSeperateDistance/2+3),0]) 
+	    rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) cylinder(r=m25ScrewRadius, h=30,center=true);  
+	    
+	    translate ([-cos(i)*mountingHoleDistance/2, -sin(i)*mountingHoleDistance/2,0])
+	    translate ([sin(i)*(ballSeperateDistance/2+3), -cos(i)*(ballSeperateDistance/2+3),0]) 
+	    rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) cylinder(r=m25ScrewRadius, h=30,center=true);  
+	    
+	}
+    }
+
+}
+
+
 module approxSensorMount1(){
     difference(){
 	translate([15,-26,3])rotate([0,0,30])
@@ -373,8 +416,8 @@ module approxSensorMount1(){
 //color([0.2,0.2,0.2]) 
 baseShape();
 
-!approxSensorMount1();
-
+//approxSensorMount1();
+approxSensorMount2();
 
 
 //color([0.5,1,0.2],0.5) 	
