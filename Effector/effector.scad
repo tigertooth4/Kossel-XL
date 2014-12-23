@@ -339,17 +339,17 @@ module approxSensorMount2(){
 	    difference(){
 		minkowski(){
 		    union(){
-			translate([0,-4,-3])rotate([48,0,0])cube([22,16,2],center=true);
-			translate([0,-9.1,-19.5])cube([22,2,22],center=true);
+			translate([0,-5,-4])rotate([48,0,0])cube([22,21,2],center=true);
+			translate([0,-12.1,-22.5])cube([22,2,22],center=true);
 			//translate([0,-2,0])cube([10,5,5],center=true);
-			//for(i=[-1,1])translate([i*10,-11.5,-23])cube([2.5,3,25],center=true);
+			for(i=[-1,1])translate([i*9.6,-10,-12.5])cube([2.5,3,5],center=true);
 		    }
-		    rotate([0,90,0])cylinder(r=1,h=1,center=true);
+		    rotate([0,90,0])cylinder(r=1,h=2,center=true);
 		}
-		for(i=[-1,1])translate([i*5.25,-11,-15])
+		for(i=[-1,1])translate([i*5.25,-11,-20])
 		hull(){
 		    rotate([90,0,0])cylinder(r=m3ScrewRadius,h=20,center=true);
-		    translate([0,0,-13])rotate([90,0,0])cylinder(r=m3ScrewRadius,h=20,center=true);
+		    translate([0,0,-10])rotate([90,0,0])cylinder(r=m3ScrewRadius,h=20,center=true);
 		}
 		
 		
@@ -417,7 +417,7 @@ module approxSensorMount1(){
 baseShape();
 
 //approxSensorMount1();
-approxSensorMount2();
+!approxSensorMount2();
 
 
 //color([0.5,1,0.2],0.5) 	
