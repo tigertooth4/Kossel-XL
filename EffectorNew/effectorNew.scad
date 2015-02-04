@@ -1,5 +1,5 @@
-use <roundedBox.scad>
-use <microswitch.scad>
+//use <roundedBox.scad>
+//use <microswitch.scad>
 
 
 $fn = 50;
@@ -79,6 +79,8 @@ module grooveShape(){
 	translate([-grooveHoleRadius+4-5, 0,0]) cube([10,grooveHoleRadius*2,40], center=true);}
 }
 
+
+// ----------------------------deprecated------------------------------------------
 module baseShape(){
     difference(){
 	union(){
@@ -205,101 +207,40 @@ module baseShape(){
 }
 
 
-
-lidHeight= 25;
-
-
-
-
-module lid(){
-    
+module fanCone(){
     difference(){
-	union(){
-	    hull(){
-		translate([0,0,0])
-		linear_extrude(height=1,center=false)
-		scale([0.75,0.75,1])
-		triangleShape();
-		
-		translate([0,0,lidHeight])
-		linear_extrude(height=1,center=false)
-		scale([0.5,0.5,1])
-		triangleShape();
-
-		
-		translate([-18,0,pivotRadius-1])rotate([90,0,0])
-		cylinder(r= pivotRadius-1, h= innerPivotWidth + 2*outerPivotWidth, center=true);
+	// outer profile
+	hull(){
+	    minkowski(){
+		cube([25-roundness*2,25-roundness*2,5],center=true);
+		cylinder(r=roundness,h=1,center=true);
 	    }
-	    
-	    translate([pivotFarback,0, pivotRadius-1])rotate([90,0,0])
-	    cylinder(r= pivotRadius, h=innerPivotWidth + 2*outerPivotWidth, center=true);
-	    
+	    translate([0,10,-25])
+	    rotate([5,0,0])
+	    minkowski(){
+		cube([24-roundness,15-roundness,1],center=true);
+		cylinder(r=roundness/2,h=1,center=true);
+	    }
 	}
-	
-	// leave the outer space for the base pivot
-%	translate ([pivotFarback,-innerPivotWidth/2,pivotRadius-1])rotate([90,0,0]) 
-	cylinder(r= pivotRadius + 0.8, h= outerPivotWidth+1, center = true);
-	
-	translate ([pivotFarback,innerPivotWidth/2,pivotRadius-1])rotate([90,0,0]) 
-	cylinder(r= pivotRadius + 0.8, h= outerPivotWidth+1, center = true);
-	
-	// drill a m3 hole 
-	translate([pivotFarback,0, pivotRadius-1])rotate([90,0,0])
-	cylinder(r= m3ScrewRadius, h=longEdge, center = true);
-	
-	// drill two m3 nut head
-	translate([pivotFarback, -innerPivotWidth/2 - outerPivotWidth - 7, pivotRadius-1])rotate([90,0,0]) 
-	cylinder(r=m3ScrewHeadRadius+err, h=15, center=true);
-	translate([pivotFarback, innerPivotWidth/2 + outerPivotWidth+7, pivotRadius-1])rotate([90,0,0]) 
-	cylinder(r=m3NutRadius+err, h=15, center=true, $fn=6);
-	
-	// leave the grooveMount space
-	translate([0,0,-12.5])grooveShape();
-	translate([0,0, 7])cylinder(r=8 + err, h=4.0, center=true);
-	cylinder(r=3, h=40, center=true);
-
-	// leave for the nut for quick fit
-	translate([0,0, 10.5]) cylinder(r=m5NutRadius,h=6,$fn=6, center=true);
-	
-	//grouve Mounting holes
-	for (i=[60:60:120])
-	rotate([0,0,i]) {
-	    translate([grooveMountScrewRadius, 0,0]) cylinder(r=m3ScrewRadius, h=30,center=true);
-	    translate([grooveMountScrewRadius, 0,20]) cylinder(r=m3ScrewHeadRadius, h= 20, center=true);
-	}
-	
-	for (i=[240:60:300])
-	rotate([0,0,i]) {
-	    translate([grooveMountScrewRadius, 0,0]) cylinder(r=m3ScrewRadius, h=30,center=true);
-	    translate([grooveMountScrewRadius, 0,20]) cylinder(r=m3ScrewHeadRadius, h= 20, center=true);
-	}
-	
-	// leave the space for mount the microswitch
-	//translate([grooveHoleRadius+8/2,0, 0]) 
-	//	{
-	//		cube([8, 22, 22],center=true);
-	//		translate([0,0,7])rotate([0,180, 90])%microswitch();
-	//	}
-	// mount the microswitch
-	
-	// Leave a m3Screw hole for mounting the pulling
-	translate([longEdge*sqrt3/3-7,0,0]) cylinder(r=m3ScrewRadius, h=20, center=true);
-	translate([longEdge*sqrt3/3-7,0,5]) cylinder(r=m3NutRadius, h=4, center=true, $fn=6);
-
-	// Leave a m3Screw hole for triggering the microswitch
-	translate([grooveHoleRadius + 2.8, 2.5, -1]) cylinder(r=m3ScrewRadius, h=100, center=true);
-	translate([grooveHoleRadius + 2.8, 2.5, 2*pivotRadius+5]) cylinder(r=m3ScrewHeadRadius, h=2*pivotRadius+8, center=true);
-	
-	//make a flat bottom
-	translate([0,0,-1.0]) cube([100,100,3],center = true);
-
-	// Leave a hole for wires to pass through
-	translate([-10,0,0]) roundedBox([m3ScrewRadius*2.5, m3ScrewRadius*5+2,  100], m3ScrewRadius, center=true);
-	translate([-22,0,1]) rotate([0,90,0]) roundedBox([m3ScrewRadius*2, m3ScrewRadius*6.5,  50], m3ScrewRadius, center=true);
-	translate([-22,0,-1]) rotate([0,60,0]) roundedBox([m3ScrewRadius*2, m3ScrewRadius*6.5,  30], m3ScrewRadius, center=true);
-	translate([-22,0,-1]) rotate([0,-60,0]) roundedBox([m3ScrewRadius*2, m3ScrewRadius*6.5,  30], m3ScrewRadius, center=true);
     }
 }
+
+module fanConeInner(){
+    // inner profile
+    hull(){
+	minkowski(){
+	    cube([20-roundness*2,20-roundness*2,6],center=true);
+	    cylinder(r=roundness,h=1,center=true);
+	}
+	translate([0,10,-26])
+	rotate([5,0,0])
+	minkowski(){
+	    cube([18-roundness,10-roundness,1],center=true);
+	    cylinder(r=roundness/2,h=1,center=true);
+	}
+    }
+}
+
 
 
 
@@ -307,6 +248,12 @@ module lid(){
 RadiatorRadius = 20;
 RadiatorHeight = 30;
 GrooveMountRadius = 8;
+
+V6SinkHeight = 25;
+V6SinkRadius = 22.3/2;
+proxSensor_x = 17.5;
+proxSensor_y = 17.5;
+proxSensor_z = 35;
 
 
 module lowerLayerShape()
@@ -356,127 +303,141 @@ module lowerLayer(){
 	    cylinder(r=m4ScrewRadius, h=20, center = true);
 	    translate([0,0,-6]) cylinder(r=m4ScrewHeadRadius, h=12, center=true);
 	}
+
+	// Central Hole
+	translate([0,0,-20 ])linear_extrude(height= 30) scale([0.67,0.67,1]) triangleShape();
+
     }
 
 }
 
 
-module upperLayer(){
-
-    translate([0,0,upperHeight])
-    //
-    hull(){
-	linear_extrude(height= 2,center = false) scale([0.75,0.55]) triangleShape();
-	translate([0,0,(RadiatorHeight-15)*0.5])
-	linear_extrude(height=2,center=false) scale([0.6,0.5])triangleShape();
-    }
 
 
-    //translate([0,0,upperHeight+15]) linear_extrude(height= 12,center = false,scale=0.8)
-    //scale([0.75*.9,0.6*.9])triangleShape();
-
-    translate([0,0,upperHeight+9])
-    hull(){
-	linear_extrude(height=0.5,center=false) scale([0.6, 0.5])triangleShape();
-	translate([-5,0,(RadiatorHeight-15)*.4])scale([1,0.8,1])rotate([0,0,30])
+module V6Profile()
+{
+    cylinder(r= V6SinkRadius+1.5, h=26);
+    cylinder(r= 8, h= 34);
+    cylinder(r= 6, h= 40);
+    translate([0,0,39])cylinder(r= 8, h=6);
+    
+}
+    
+module upperLayer()
+{
+    difference(){
+	// Basic shape
 	minkowski(){
-	    cylinder(r=16, h=5, center=true, $fn=6);
-	    cylinder(r=roundness, h=1, center=true);
+	    union(){
+		// Heat Sink mount
+		translate([0,0,8])
+		rotate([0,0,0])
+		linear_extrude(height=V6SinkHeight-10, scale=0.6) scale([0.35, 0.35, 1]) triangleShape();
+		
+		
+		for(i=[0:120:240])
+		rotate([0,0,i])
+		translate([V6SinkRadius,0,0])
+		{
+		    translate([0,0, V6SinkHeight/3-2])cube([V6SinkRadius, V6SinkRadius*.7, V6SinkHeight/3],center=true);
+		    hull(){
+			translate([V6SinkRadius*0.5,0, V6SinkHeight/3-2])cube([1, V6SinkRadius*.7, V6SinkHeight/3],center=true);
+			translate([18,0,.5]) cube([2, V6SinkRadius*.8, 1],center=true);
+		    }
+		}
+		
+	    }
+	    
+	    // smooth the profile
+	    cylinder( r=3.5, h=3);
 	}
+	translate([0,0,-14]) V6Profile();
+
+	// Heat sink cooling fan
+	
     }
     
 }
 
-module fanCone(){
-    difference(){
-	// outer profile
-	hull(){
-	    minkowski(){
-		cube([25-roundness*2,25-roundness*2,5],center=true);
-		cylinder(r=roundness,h=1,center=true);
-	    }
-	    translate([0,10,-25])
-	    rotate([5,0,0])
-	    minkowski(){
-		cube([24-roundness,15-roundness,1],center=true);
-		cylinder(r=roundness/2,h=1,center=true);
-	    }
-	}
-    }
-}
 
-module fanConeInner(){
-    // inner profile
-    hull(){
+module upperPart(){
+
+    // prox sensor mount
+    #translate([V6SinkRadius + proxSensor_x/2, 0, -13])
+    cube([proxSensor_x, proxSensor_y, proxSensor_z], center=true);
+
+    difference(){
+	import("./upperLayer.stl");
+	// Heat sink cooling fan
+	#translate([-16,0,-1])
+	rotate([0,90,0])
 	minkowski(){
-	    cube([20-roundness*2,20-roundness*2,6],center=true);
-	    cylinder(r=roundness,h=1,center=true);
+	    cube([21,21,8],center=true);
+	    cylinder(r=2, h=1, center=true);
 	}
-	translate([0,10,-26])
-	rotate([5,0,0])
+
+	// Print fans
+	for(i=[-1,1])
+	#rotate([0,0,i*120])
+	translate([-30,0,-5])
+	rotate([0,75,0])//-i*15])
 	minkowski(){
-	    cube([18-roundness,10-roundness,1],center=true);
-	    cylinder(r=roundness/2,h=1,center=true);
+	    cube([31,31,8], center=true);
+	    cylinder(r=2, h=1, center=true);
 	}
     }
+    
 }
+ 
 
 module body()
 {
     difference(){
 	union(){
 	    lowerLayer();
-	    //upperLayer();
+            translate([0,0,upperHeight-4]) upperPart();
 
-	    for(i=[0,1])mirror([0,i,0])rotate([0,0,30])
-	    translate([0,-(baseShapeRadius+4)*sqrt3/3,3])
-	    rotate([10,0,0])
-	    fanCone();
+//	    for(i=[0,1])mirror([0,i,0])rotate([0,0,30])
+//	    translate([0,-(baseShapeRadius+4)*sqrt3/3,3])
+//	    rotate([10,0,0])
+//	    fanCone();
 	}
 
 
-	translate([0,0,-10])cylinder(r=grooveHoleRadius, h= 70, center=true);
-	translate([0,0,5])cylinder(r=10, h= 70, center=true);
+	//translate([0,0,-27.5])cylinder(r=grooveHoleRadius+5, h= 70, center=true);
+	//%translate([0,0,5])cylinder(r=10, h= 70, center=true);
 	
 
-	translate([-35,0,12])rotate([0,0,0]) //fanCone();
-	minkowski(){
-	    cube([50,25-roundness*2,25-roundness*2],center=true);
-	    rotate([0,90,0])cylinder(r=roundness, h=1,center=true);
-	}
+//	translate([-35,0,12])rotate([0,0,0]) //fanCone();
+//	minkowski(){
+//	    cube([50,25-roundness*2,25-roundness*2],center=true);
+//	    rotate([0,90,0])cylinder(r=roundness, h=1,center=true);
+//	}
 	// wind holes
 	//translate([18,0,25])
-	for(i=[-10:5:10])
-	translate([25,i,12])
-	hull(){
-	    rotate([0,90,0])cylinder(r=1.1, h=40,center=true);
-	    translate([0,0,8-i*i*.03]) rotate([0,90,0])cylinder(r=1.1, h=40, center=true);
-	}
+//	for(i=[-10:5:10])
+//	translate([25,i,12])
+//	hull(){
+//	    rotate([0,90,0])cylinder(r=1.1, h=40,center=true);
+//	    translate([0,0,8-i*i*.03]) rotate([0,90,0])cylinder(r=1.1, h=40, center=true);
+//	}
 	
-	for(i=[0,1])mirror([0,i,0])rotate([0,0,30])
-	translate([0,-(baseShapeRadius+4)*sqrt3/3,3])
-	rotate([10,0,0])
-	fanConeInner();
+//	for(i=[0,1])mirror([0,i,0])rotate([0,0,30])
+//	translate([0,-(baseShapeRadius+4)*sqrt3/3,3])
+//	rotate([10,0,0])
+//	fanConeInner();
 
     }
 }
 
 
 //color("grey")
-body();
+ body();
+!upperLayer();
 
-color("silver")
-translate([-2,0,-35])
-rotate([0,0,0])import("./e3d-v6.stl");
+color("silver") translate([-2,0,-29]) rotate([0,0,0])import("./e3d-v6.stl");
 
 //translate([100,0,0])
 //baseShape();
 
-//fanCone();
-
-//fanConeInner();
-
-//color([0.5,1,0.2],0.5) 	
-//%translate([100,0, upperHeight])
-//lid();
 
