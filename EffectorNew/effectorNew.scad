@@ -9,7 +9,8 @@ longEdge = 62;
 shortEdge = longEdge * .4;
 
 
-m25ScrewRadius = 1.25; 
+m25ScrewRadius = 1.25;
+m25ScrewHeadRadius= 2.5;
 
 m4ScrewRadius = 2.0; //for M4 bolt
 m4ScrewHeadRadius = 4.0; 
@@ -20,6 +21,12 @@ m5NutRadius = 8/sqrt3+0.2;
 m3ScrewRadius = 1.5; //for M3 bolt
 m3ScrewHeadRadius = 3.0; 
 m3NutRadius = 3.5; //
+
+m2ScrewRadius = 1.0; //for M4 bolt
+m2ScrewHeadRadius = 2.0; 
+m2NutRadius = 2.3;
+
+
 cylinderMaxRadius = 7; // enough
 cylinderMinRadius = 3;
 cylinderHeight = 7.0;
@@ -79,172 +86,6 @@ module grooveShape(){
 	translate([-grooveHoleRadius+4-5, 0,0]) cube([10,grooveHoleRadius*2,40], center=true);}
 }
 
-
-// ----------------------------deprecated------------------------------------------
-module baseShape(){
-    difference(){
-	union(){
-	    difference(){
-		union(){
-		    // Draw the basic profile
-		    linear_extrude(height= upperHeight,center = false,convexity=10,scale=upperScaleFactor) triangleShape();
-		    translate([0,0,-middleHeight]) linear_extrude(height= middleHeight,center = false) triangleShape();
-		    translate([0,0,-middleHeight]) rotate([180,0,0]) 
-		    linear_extrude(height=downHeight, center = false, scale=underScaleFactor) triangleShape();
-		}
-		// then dig a shallow channel for pivot
-		translate([-18,0,upperHeight+ pivotRadius -1]) 
-		rotate([90,0,0]) cylinder(r=pivotRadius+2, h=innerPivotWidth+2*outerPivotWidth + 5, center=true);  
-		
-	    }
-	    // Draw the base pivots:
-	    translate([pivotFarback, -innerPivotWidth/2, upperHeight+ pivotRadius-1]) 
-	    rotate([90,0,0])  
-	    difference()	{
-		hull(){
-		    cylinder(r= pivotRadius, h=outerPivotWidth, center=true);
-		    translate([-2,-pivotRadius-2,0]) 
-		    cube([pivotRadius*2,2, outerPivotWidth], center = true);
-		}
-		// dig a m4 screw hole in the center
-		cylinder(r= m3ScrewRadius, h=30, center = true);
-	    };
-	    
-	    translate([pivotFarback,innerPivotWidth/2,upperHeight+ pivotRadius-1]) 
-	    rotate([90,0,0])  
-	    difference()	{
-		hull(){
-		    cylinder(r= pivotRadius, h=outerPivotWidth, center=true);
-		    translate([-2,-pivotRadius-2,0]) 
-		    cube([pivotRadius*2,2, outerPivotWidth], center = true);
-		}
-		// dig a m4 screw hole in the center
-		cylinder(r= m3ScrewRadius, h=30, center = true);
-	    };
-	    
-	    // Draw the pillar
-	    for (i=[30:120:270]) {
-		translate ([cos(i)*ballSeperateDistance/2, sin(i)*ballSeperateDistance/2,0])
-		translate ([sin(i)*(baseShapeRadius/2-roundness/2), -cos(i)*(baseShapeRadius/2-roundness/2),0]) 
-		rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) pillar();  
-		
-		translate ([-cos(i)*ballSeperateDistance/2, -sin(i)*ballSeperateDistance/2,0])
-		translate ([sin(i)*(baseShapeRadius/2-roundness/2), -cos(i)*(baseShapeRadius/2-roundness/2),0]) 
-		rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) pillar();
-	    }
-	    
-	    
-	    
-	}
-	// Minus screw holes
-	
-	for (i=[30:120:270]) {
-	    translate ([cos(i)*ballSeperateDistance/2, sin(i)*ballSeperateDistance/2,0])
-	    translate ([sin(i)*(baseShapeRadius/2-roundness/2), -cos(i)*(baseShapeRadius/2-roundness/2),0]) 
-	    rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) 
-	    union() {
-		cylinder(r=m4ScrewRadius, h=20, center = true);
-		translate([0,0,-6]) cylinder(r=m4ScrewHeadRadius, h=12, center=true);
-	    }
-	    
-	    
-	    translate ([-cos(i)*ballSeperateDistance/2, -sin(i)*ballSeperateDistance/2,0])
-	    translate ([sin(i)*(baseShapeRadius/2-roundness/2), -cos(i)*(baseShapeRadius/2-roundness/2),0]) 
-	    rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) 						
-	    union() {
-		cylinder(r=m4ScrewRadius, h=20, center = true);
-		translate([0,0,-6]) cylinder(r=m4ScrewHeadRadius, h=12, center=true);
-	    }
-	}
-	
-	// Minus groove HOLES
-	scale([1.1,1.1,1])grooveShape();
-	
-	// Minus micro switch mount place
-	
-	translate([grooveHoleRadius +2,0, 0]) cube([8,24,upperHeight+middleHeight+downHeight+3],center=true);
-	// Minus two holes for m2.5 screws
-	translate([grooveHoleRadius +2, -microSwitchHolesDistance/2, -2.3]) rotate([0,90,0]) cylinder(r=m25ScrewRadius, h=30,center=true);
-	translate([grooveHoleRadius +2, microSwitchHolesDistance/2, -2.3]) rotate([0,90,0]) cylinder(r=m25ScrewRadius, h=30,center=true);
-	translate([grooveHoleRadius + 3, 0, -3.3]) rotate([0,0,90]) %microswitch();
-	
-	// Minus a pulling screw hole
-	translate([longEdge*sqrt3/3-7,0,-4]) cylinder(r=3.5, h=4,center=true);
-	translate([longEdge*sqrt3/3-7,0,0])  roundedBox([m3ScrewRadius*4, m3ScrewRadius*2.5,100], m3ScrewRadius, center=true);
-	
-	
-	// Minus some preset holes for wires pass through
-	translate([-longEdge*sqrt3/3+10,0,0]) rotate([0,35,0]) roundedBox([m3ScrewRadius*3+1, m3ScrewRadius*5.5+1,  100], m3ScrewRadius, center=true);
-	
-	// Minus an inner channel to let the wire pass through for microSwitch
-	translate([-2,0,-1]) difference() {
-	    cylinder(r=grooveHoleRadius + 7.5, h= 4,center=true);
-	    cylinder(r=grooveHoleRadius + 5, h=4, center=true);
-	    translate([50,0,0]) cube([100,20,5],center=true);
-	}
-	translate([-2,0,-2]) for (i=[45:45:315]) {
-	    rotate([0,0,-i]) translate([grooveHoleRadius+6.5,0,0]) cube([m3ScrewRadius*2.5, m3ScrewRadius*3, 6], center=true);}
-	
-	// Leave fans Mounting holes
-	
-	for (i=[30:120:260]) {
-	    translate ([cos(i)*mountingHoleDistance/2, sin(i)*mountingHoleDistance/2,0])
-	    translate ([sin(i)*(ballSeperateDistance/2+3), -cos(i)*(ballSeperateDistance/2+3),0]) 
-	    rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) cylinder(r=m25ScrewRadius, h=30,center=true);  
-	    
-	    translate ([-cos(i)*mountingHoleDistance/2, -sin(i)*mountingHoleDistance/2,0])
-	    translate ([sin(i)*(ballSeperateDistance/2+3), -cos(i)*(ballSeperateDistance/2+3),0]) 
-	    rotate([cos(i)*ballJointAngle, sin(i)*ballJointAngle,0]) cylinder(r=m25ScrewRadius, h=30,center=true);  
-	    
-	}
-	
-	
-	
-	
-	
-    }
-    echo ("Base Height =", upperHeight+middleHeight+downHeight);
-}
-
-
-module fanCone(){
-    difference(){
-	// outer profile
-	hull(){
-	    minkowski(){
-		cube([25-roundness*2,25-roundness*2,5],center=true);
-		cylinder(r=roundness,h=1,center=true);
-	    }
-	    translate([0,10,-25])
-	    rotate([5,0,0])
-	    minkowski(){
-		cube([24-roundness,15-roundness,1],center=true);
-		cylinder(r=roundness/2,h=1,center=true);
-	    }
-	}
-    }
-}
-
-module fanConeInner(){
-    // inner profile
-    hull(){
-	minkowski(){
-	    cube([20-roundness*2,20-roundness*2,6],center=true);
-	    cylinder(r=roundness,h=1,center=true);
-	}
-	translate([0,10,-26])
-	rotate([5,0,0])
-	minkowski(){
-	    cube([18-roundness,10-roundness,1],center=true);
-	    cylinder(r=roundness/2,h=1,center=true);
-	}
-    }
-}
-
-
-
-
-//**************************************** New **************************************************
 RadiatorRadius = 20;
 RadiatorHeight = 30;
 GrooveMountRadius = 8;
@@ -256,34 +97,34 @@ proxSensor_y = 17.5;
 proxSensor_z = 35;
 
 
-module lowerLayerShape()
+module V6Profile()
 {
-    union(){
-	// Draw the basic profile
-	linear_extrude(height= upperHeight,center = false,convexity=10,scale=upperScaleFactor)
-	triangleShape();
-	
-	translate([0,0,-middleHeight]) linear_extrude(height= middleHeight,center = false)
-	triangleShape();
-	
-	translate([0,0,-middleHeight]) rotate([180,0,0]) 
-	linear_extrude(height=downHeight, center = false, scale=underScaleFactor)
-	triangleShape();
-
-    }
-
-}
+    cylinder(r= V6SinkRadius+3, h=26);
+    cylinder(r= 8, h= 34);
+    cylinder(r= 6-0.1, h= 40);
+    translate([0,0,39])cylinder(r= 8, h=6);
     
+}
 
-module lowerLayer(){
+
+module lowerLayerShape(){
     difference(){
 	union(){
-	    //hull(){ 
-		lowerLayerShape();
-		//for(i=[0,1])mirror([0,i,0])rotate([0,0,-30])translate([0,baseShapeRadius*sqrt3/3-10,0])rotate([70,0,0])
-		//cube([25,10,25],center=true);
-	    //}
-	    
+	    //lower Shape
+	    union(){
+		// Draw the basic profile
+		linear_extrude(height= upperHeight,center = false,convexity=10,scale=upperScaleFactor/1.05)
+		scale([1.07,1.07,1])triangleShape();
+		
+		translate([0,0,-middleHeight]) linear_extrude(height= middleHeight,center = false)
+		scale([1.07,1.07,1])	triangleShape();
+		
+		translate([0,0,-middleHeight]) rotate([180,0,0]) 
+		linear_extrude(height=downHeight, center = false, scale=underScaleFactor*1.05)
+		scale([1.07,1.07,1])	triangleShape();
+		
+	    }
+
 	    // Draw Pillars for Ball Joints
 	    for (i=[30:120:270])
 	    for (j=[-1,1])
@@ -303,141 +144,326 @@ module lowerLayer(){
 	    cylinder(r=m4ScrewRadius, h=20, center = true);
 	    translate([0,0,-6]) cylinder(r=m4ScrewHeadRadius, h=12, center=true);
 	}
-
+	
 	// Central Hole
 	translate([0,0,-20 ])linear_extrude(height= 30) scale([0.67,0.67,1]) triangleShape();
-
-    }
-
-}
-
-
-
-
-module V6Profile()
-{
-    cylinder(r= V6SinkRadius+1.5, h=26);
-    cylinder(r= 8, h= 34);
-    cylinder(r= 6, h= 40);
-    translate([0,0,39])cylinder(r= 8, h=6);
-    
-}
-    
-module upperLayer()
-{
-    difference(){
-	// Basic shape
-	minkowski(){
-	    union(){
-		// Heat Sink mount
-		translate([0,0,8])
-		rotate([0,0,0])
-		linear_extrude(height=V6SinkHeight-10, scale=0.6) scale([0.35, 0.35, 1]) triangleShape();
-		
-		
-		for(i=[0:120:240])
-		rotate([0,0,i])
-		translate([V6SinkRadius,0,0])
-		{
-		    translate([0,0, V6SinkHeight/3-2])cube([V6SinkRadius, V6SinkRadius*.7, V6SinkHeight/3],center=true);
-		    hull(){
-			translate([V6SinkRadius*0.5,0, V6SinkHeight/3-2])cube([1, V6SinkRadius*.7, V6SinkHeight/3],center=true);
-			translate([18,0,.5]) cube([2, V6SinkRadius*.8, 1],center=true);
-		    }
-		}
-		
-	    }
-	    
-	    // smooth the profile
-	    cylinder( r=3.5, h=3);
-	}
-	translate([0,0,-14]) V6Profile();
-
-	// Heat sink cooling fan
 	
     }
     
 }
 
-
-module upperPart(){
-
-    // prox sensor mount
-    #translate([V6SinkRadius + proxSensor_x/2, 0, -13])
-    cube([proxSensor_x, proxSensor_y, proxSensor_z], center=true);
-
+module upperPart_v2(){
+    
+    //basic shape
     difference(){
-	import("./upperLayer.stl");
-	// Heat sink cooling fan
-	#translate([-16,0,-1])
-	rotate([0,90,0])
-	minkowski(){
-	    cube([21,21,8],center=true);
-	    cylinder(r=2, h=1, center=true);
-	}
+	union(){
+	    hull(){
+		linear_extrude(height= 2) scale([0.76, 0.76, 1])triangleShape();
+		minkowski(){
+		    intersection(){
+			translate([0,0, V6SinkHeight-5]) linear_extrude(height=3)
+			scale([0.25, 0.25,1]) triangleShape();
+		    }
+		    cylinder(r=4, h=1,center=true);
+		}
+		// front screw support for holding the upper part
+		// using two m2 screws
+		for(i=[-1,1])
+		translate([25,i*14,0]) cylinder(r1=2, r2=1.6, h=5);
+	    }
+	    // print fans holding supports
+	    // print fans holding screws (m2)
 
+	    for(i=[-1])
+	    translate([3,-i*13.2,-5])
+	    rotate([0,0,i*8])
+	    rotate([i*5,0,0])
+	    translate([15,0,15])rotate([i*90,0,0])cylinder(r1=3, r2=2,h=5,center=true);
+
+	}
+	
+	
+	// prox sensor mount
+	translate([V6SinkRadius + 3 + proxSensor_x/2, 0, -10])
+	minkowski(){
+	    cube([proxSensor_x, proxSensor_y, proxSensor_z], center=true);
+	    //cylinder(r=2,h=5,center=true);
+	    sphere(r=1.5);
+	}
+	
+	// Heat sink cooling fan
+	translate([-18,0,12])
+	//rotate([0,90,0])
+	minkowski(){
+	    hull(){
+		cube([21,21,1],center=true);
+		translate([-10,0,-20]) cube([35,31,1],center=true);
+	    }
+	    sphere(r=2);
+	}
+	
 	// Print fans
 	for(i=[-1,1])
-	#rotate([0,0,i*120])
-	translate([-30,0,-5])
-	rotate([0,75,0])//-i*15])
+	translate([3,-i*19,-8])
+	rotate([0,0,i*8])
+	rotate([i*5,0,0])
 	minkowski(){
-	    cube([31,31,8], center=true);
-	    cylinder(r=2, h=1, center=true);
+	    hull(){
+		cube([32,1,40],center=true);
+		translate([-4,-i*15,0]) cube([40,1,40], center=true);
+	    }
+	    sphere(r=3);
 	}
+	
+	// Heat sink mount
+	translate([0,0,-15])	V6Profile();
+
+
+	
+	// m3 Screws
+	// rare hold screw
+	translate([-10, 0, 19])rotate([90,0,0])cylinder(r=m3ScrewRadius, h=40, center=true);
+	translate([-10,16.5, 19])rotate([90,0,0])cylinder(r=m3NutRadius, h=5, center=true, $fn=6);
+	translate([-10,-16.5,19])rotate([90,0,0])cylinder(r=m3ScrewHeadRadius, h=5,center=true);
+	
+	// front hold screw
+	translate([11, 0, 19])rotate([90,0,0])cylinder(r=m3ScrewRadius, h=40, center=true);
+	translate([11,12, 19])rotate([90,0,0])cylinder(r=m3NutRadius, h=5, center=true, $fn=6);
+	translate([11,-12,19])rotate([90,0,0])cylinder(r=m3ScrewHeadRadius, h=5,center=true);
+
+	// m2Screws to mount upper part to lower Basement
+	// rare
+	for(i=[-1,1])
+	translate([-20,i*20,0])
+	{
+	    cylinder(r=m2ScrewRadius, h=40,center=true);
+	    translate([0,0,12])cylinder(r=m2ScrewHeadRadius, h=10, center=true);
+	}
+
+	// front
+	for(i=[-1,1])
+	translate([25,i*14,0])
+	{
+	    cylinder(r=m2ScrewRadius, h=40,center=true);
+	    translate([0,0,10])cylinder(r=m2ScrewHeadRadius, h=10, center=true);
+	}
+
+	// print fans holding screws (m2)
+	for(i=[-1,1])
+	translate([3,-i*15,-5])
+	rotate([0,0,i*8])
+	rotate([i*5,0,0])
+	for(j=[-1,1])
+	translate([15*j,0,15])rotate([90,0,0])cylinder(r=m2ScrewRadius,h=30,center=true);
+
+    }
+
+    // Sink cooling fan holding supports
+    for(i=[-1,1])
+    difference(){
+	translate([-9,i*11,11])
+	rotate([0,90,0])
+	// support thing
+	minkowski(){
+	    cube([6,5,8],center=true);
+	    cylinder(r=2,h=2,center=true);
+	}
+	// screw holes
+	translate([-15, i*10, 10])
+	rotate([0,90,0])
+	cylinder(r=m2ScrewRadius, h= 20, center=true);
+
+
+	// avoid the m2 screw for printing fans
+	for(j=[-1,1])
+	translate([3,j*(-15),-5])
+	rotate([0,0,j*8])
+	rotate([j*5,0,0])
+	translate([-15,0,15])rotate([90,0,0])cylinder(r=m2ScrewRadius,h=20, center=true);
+
+	// avoid the heat sink
+	translate([0,0,-15])	V6Profile();
+
+
+    }
+
+    // Heat sink fan
+    
+    %translate([-20,0,0])
+    minkowski(){
+	cube([8,21,21],center=true);
+	rotate([0,90,0])
+	cylinder(r=2, h=1, center=true);
     }
     
+    // print fans
+    
+    %for(i=[-1,1])
+    translate([3,-i*21,-5])
+    rotate([0,0,i*8])
+    rotate([i*5,0,0])
+    minkowski(){
+	cube([31,8,31], center= true);
+	rotate([90,0,0]) cylinder(r=2, h=1, center=true);
+    }
+
+    // for better adhesion
+    for(i=[-1,1])
+    translate([32,-i*10,0])cylinder(r=5,h=0.4);
+
 }
- 
+
+
+module lowerPart_v2(){
+    difference(){
+	union(){
+	    difference(){
+		union(){
+		    lowerLayerShape();
+
+		    // wind hole cover
+		    hull(){
+			for(i=[-1,2])
+			translate([-25,i*8-4.5,1.5])
+			translate([0,0,0])rotate([0,90,0])cylinder(r=4.5,h=17,center=true);
+			//    translate([0,0,-3.5])rotate([0,90,0])cylinder(r=2,h=20,center=true);
+		    }
+
+		    // side wind hole
+		    for(j=[-1,1])
+		    translate([10,0,0])
+		    intersection(){
+			hull(){
+			    for(i=[-2,1])
+			    translate([i*6,j*25,3])
+			    translate([0,0,-2.5])rotate([0,0,-j*15])rotate([90,0,0])
+			    cylinder(r=4.5,h=40,center=true);
+			}
+			cylinder(r1=62,r2=55, h=20,center=true, $fn=3);
+			cylinder(r1=55,r2=62, h=20,center=true, $fn=3);
+			
+		    }
+
+
+		}
+
+		// Central Hole
+		translate([0,0,-20 ])linear_extrude(height= 30) scale([0.67,0.67,1]) triangleShape();
+
+		// Heat sink fan
+		
+		translate([-20,0,0])
+		minkowski(){
+		    cube([8,21,21],center=true);
+		    rotate([0,90,0])
+		    cylinder(r=3, h=3, center=true);
+		}
+	    
+		// print fans
+		
+		for(i=[-1,1])
+		translate([3,-i*18,-5])
+		rotate([0,0,i*8])
+		rotate([i*5,0,0])
+		minkowski(){
+		    cube([33,12,31], center= true);
+		    //rotate([90,0,0]) cylinder(r=3, h=3, center=true);
+		    sphere(r=2);
+		}
+	    
+		// prox sensor
+		translate([V6SinkRadius + 4 + proxSensor_x/2, 0, -10])
+		minkowski(){
+		    cube([proxSensor_x, proxSensor_y, proxSensor_z], center=true);
+		    //cylinder(r=2,h=5,center=true);
+		    sphere(r=1);
+		}
+
+
+		// wind holes
+		hull(){
+		    for(i=[-1,2])
+		    translate([-25,i*8-4.5,1.5])
+		    translate([0,0,0])rotate([0,90,0])cylinder(r=3,h=20,center=true);
+		//    translate([0,0,-3.5])rotate([0,90,0])cylinder(r=2,h=20,center=true);
+		}
+
+		// side holes
+		for(j=[-1,1])
+		translate([10,0,0])
+		hull(){
+		    for(i=[-2,1])
+		    translate([i*6,j*25,3])
+		    translate([0,0,-2.5])rotate([0,0,-j*15])rotate([90,0,0])cylinder(r=3,h=35,center=true);
+//		    translate([0,0,-3.5])rotate([90,0,-j*5])cylinder(r=1.5,h=35,center=true);
+		}
+
+	    
+	    }
+	
+	    // rare screw places for holding the upper part
+	    // use m2 screws
+	    for(i=[-1,1])
+	    translate([-20,i*20,4.565])
+	    cylinder(r1=2.5, r2=4, h=upperHeight-2, center=true);
+	}
+
+	// rare screw places for holding the upper part
+	// use m2 screws
+	for(i=[-1,1])
+	translate([-20,i*20,0])
+	{
+	    cylinder(r=m2ScrewRadius, h=20, center=true);
+	    translate([0,0,-3])cylinder(r=m2NutRadius, h=10, center=true, $fn=6);
+	}
+
+	// front screw places for holding the upper part
+	// use m2 screws
+	for(i=[-1,1])
+	translate([25,i*14,0])
+	{
+	    cylinder(r=m2ScrewRadius, h=40,center=true);
+	    translate([0,0,-3])cylinder(r=m2NutRadius, h=10, center=true, $fn=6);
+	}
+
+
+    }    
+}
 
 module body()
 {
     difference(){
 	union(){
-	    lowerLayer();
-            translate([0,0,upperHeight-4]) upperPart();
-
-//	    for(i=[0,1])mirror([0,i,0])rotate([0,0,30])
-//	    translate([0,-(baseShapeRadius+4)*sqrt3/3,3])
-//	    rotate([10,0,0])
-//	    fanCone();
+	    lowerPart_v2();
+            translate([0,0,upperHeight])   upperPart_v2();
 	}
-
-
-	//translate([0,0,-27.5])cylinder(r=grooveHoleRadius+5, h= 70, center=true);
-	//%translate([0,0,5])cylinder(r=10, h= 70, center=true);
-	
-
-//	translate([-35,0,12])rotate([0,0,0]) //fanCone();
-//	minkowski(){
-//	    cube([50,25-roundness*2,25-roundness*2],center=true);
-//	    rotate([0,90,0])cylinder(r=roundness, h=1,center=true);
-//	}
-	// wind holes
-	//translate([18,0,25])
-//	for(i=[-10:5:10])
-//	translate([25,i,12])
-//	hull(){
-//	    rotate([0,90,0])cylinder(r=1.1, h=40,center=true);
-//	    translate([0,0,8-i*i*.03]) rotate([0,90,0])cylinder(r=1.1, h=40, center=true);
-//	}
-	
-//	for(i=[0,1])mirror([0,i,0])rotate([0,0,30])
-//	translate([0,-(baseShapeRadius+4)*sqrt3/3,3])
-//	rotate([10,0,0])
-//	fanConeInner();
-
     }
 }
 
 
-//color("grey")
- body();
-!upperLayer();
+module l_upperPart_v2(){
+    intersection(){
+	upperPart_v2();
+	translate([0,40,0])cube([80,80,60],center=true);
+    }
+}
 
-color("silver") translate([-2,0,-29]) rotate([0,0,0])import("./e3d-v6.stl");
 
-//translate([100,0,0])
-//baseShape();
+module r_upperPart_v2(){
+    intersection(){
+	upperPart_v2();
+	translate([0,-40,0])cube([80,80,60],center=true);
+    }
+}
+
+//body();
+//lowerPart_v2();
+//translate([0,0,7])upperPart_v2();
+
+//l_upperPart_v2();
+
+r_upperPart_v2();
+
+//color("silver") translate([-2,0,-27]) rotate([0,0,0])import("./e3d-v6.stl");
 
 
