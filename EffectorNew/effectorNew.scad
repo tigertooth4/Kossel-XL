@@ -101,7 +101,7 @@ module V6Profile()
 {
     cylinder(r= V6SinkRadius+3, h=26);
     cylinder(r= 9.5, h= 34); // was 8
-    cylinder(r= 6.2, h= 40); // was 6-0.1
+    cylinder(r= 6-.1, h= 40); // was 6-0.1
     translate([0,0,39])cylinder(r= 8, h=6);
     
 }
@@ -302,7 +302,7 @@ module upperPart_v2(){
 	}
 	
 	// Heat sink mount
-	translate([0,0,-14])	V6Profile(); // was -15
+	translate([0,0,-15])	V6Profile(); // was -15
 
 
 	
@@ -329,16 +329,16 @@ module upperPart_v2(){
 	for(i=[-1,1])
 	translate([-20,i*20,0])
 	{
-	    cylinder(r=m2ScrewRadius, h=40,center=true);
-	    translate([0,0,12])cylinder(r=m2ScrewHeadRadius, h=10, center=true);
+	    cylinder(r=m2ScrewRadius+.2, h=40,center=true);
+	    translate([0,0,9])cylinder(r=m2ScrewHeadRadius, h=10, center=true);
 	}
 
 	// front
 	for(i=[-1,1])
 	translate([25,i*14,0])
 	{
-	    cylinder(r=m2ScrewRadius, h=40,center=true);
-	    translate([0,0,10])cylinder(r=m2ScrewHeadRadius, h=10, center=true);
+	    cylinder(r=m2ScrewRadius+.2, h=40,center=true);
+	    translate([0,0,9])cylinder(r=m2ScrewHeadRadius, h=10, center=true);
 	}
 
 	// print fans holding screws (m2)
@@ -352,7 +352,9 @@ module upperPart_v2(){
 	// shape regulation
 	translate([0,0,-20]) cube([100,100,40],center=true);
 
-
+        // Structural holes to make the part stronger yet lighter
+        for(i=[-5,0,5,10])
+        translate([i,0,6]) rotate([90,0,0])scale([0.5,1.5,1])cylinder(r=2, h=40, center=true);
     }
 
     // Sink cooling fan holding supports
@@ -379,7 +381,7 @@ module upperPart_v2(){
 	translate([-15,0,15])rotate([90,0,0])cylinder(r=m2ScrewRadius,h=20, center=true);
 
 	// avoid the heat sink
-	translate([0,0,-14])	V6Profile();
+	translate([0,0,-15])	V6Profile();
 
 
 
@@ -401,15 +403,15 @@ module lowerLayerShape(){
 	    //lower Shape
 	    union(){
 		// Draw the basic profile
-		linear_extrude(height= upperHeight,center = false,convexity=10,scale=upperScaleFactor/1.07)
-		scale([1.07,1.07,1])triangleShape();
+		linear_extrude(height= upperHeight,center = false,convexity=10,scale=upperScaleFactor/1.08)
+		scale([1.08,1.08,1])triangleShape();
 		
 		translate([0,0,-middleHeight]) linear_extrude(height= middleHeight,center = false)
-		scale([1.07,1.07,1])	triangleShape();
+		scale([1.08,1.08,1])	triangleShape();
 		
 		translate([0,0,-middleHeight]) rotate([180,0,0]) 
 		linear_extrude(height=downHeight, center = false, scale=underScaleFactor)
-		scale([1.07,1.07,1])	triangleShape();
+		scale([1.08,1.08,1])	triangleShape();
 		
 	    }
 
@@ -449,12 +451,15 @@ module lowerPart_v2(){
 		    lowerLayerShape();
 
 		    // wind hole cover
-		    hull(){
-			for(i=[-1,2])
-			translate([-25,i*8-4.5,1.5])
-			translate([0,0,0])rotate([0,90,0])cylinder(r=6,h=17,center=true);
-			//    translate([0,0,-3.5])rotate([0,90,0])cylinder(r=2,h=20,center=true);
-		    }
+                    intersection(){
+                        hull(){     
+                            for(i=[-1,2])
+                            translate([-26,i*8-4.5,1.5])
+                            translate([0,0,0])rotate([0,90,0])cylinder(r=6,h=17,center=true);
+                            //    translate([0,0,-3.5])rotate([0,90,0])cylinder(r=2,h=20,center=true);
+                        }
+                       cylinder(r1=56, r2=82, h=20, center=true, $fn=3);
+                    }   
 
 		    // side wind hole
 		    for(j=[-1,1])
@@ -466,8 +471,8 @@ module lowerPart_v2(){
 			    translate([0,0,-2.5])rotate([0,0,-j*15])rotate([90,0,0])
 			    cylinder(r=6,h=40,center=true);
 			}
-			cylinder(r1=59,r2=59, h=20,center=true, $fn=3);
-			cylinder(r1=45,r2=80, h=20,center=true, $fn=3);
+			cylinder(r1=59.5,r2=59.5, h=20,center=true, $fn=3);
+			cylinder(r1=46,r2=80, h=20,center=true, $fn=3);
 			
 		    }
 
@@ -479,7 +484,7 @@ module lowerPart_v2(){
 
 		// Heat sink fan
 		
-		translate([-20,0,0])
+		translate([-20-1,0,0])
 		minkowski(){
 		    cube([8,21,21],center=true);
 		    rotate([0,90,0])
@@ -493,7 +498,7 @@ module lowerPart_v2(){
 		rotate([0,0,i*8])
 		rotate([i*5,0,0])
 		minkowski(){
-		    cube([33,12,31], center= true);
+		    cube([34.5,13,31], center= true);
 		    //rotate([90,0,0]) cylinder(r=3, h=3, center=true);
 		    sphere(r=2);
 		}
@@ -575,7 +580,7 @@ module wireCover()
 	    for(i=[-1,1])
 	    translate([-28,i*18.5,0])
 	    scale([1.2,1,1])
-	    cylinder(r1=2.5,r2=3, h=2.5, center=true);
+	    cylinder(r1=2.5,r2=3, h=2, center=true);
 	}
 
 	for(i=[-1,1])
@@ -646,7 +651,9 @@ module assembly()
 
     translate([0,0,-8])wireCover();
 
-//    #color("silver") translate([-2,0,-27]) rotate([0,0,0])import("./e3d-v6.stl");
+    #color("silver") translate([-2,0,-27]) rotate([0,0,0])import("./e3d-v6.stl");
+    translate([V6SinkRadius+proxSensor_x/2 + 3,0,15]) cylinder(d=21, h=2, center=true);
+    translate([V6SinkRadius+proxSensor_x/2 + 3,0,15]) cylinder(d=15, h=10, center=true);
     #translate([V6SinkRadius+proxSensor_x/2 + 3,0,-2]) Fotek_mod();
     #color("grey")translate([0,0,7])fans();  
 
@@ -660,7 +667,7 @@ module printArrange()
 //    translate([0,0,6.375])lowerPart_v2();
     rotate([0,0,-30])translate([0,40, 0])l_upperPart_v2(); rotate([0,0,30])translate([0,-40, 0])r_upperPart_v2();
     //translate([0,-5,9])rotate([90,0,0])l_FotekTop_mod(); translate([0,5,9])rotate([-90,0,0])r_FotekTop_mod();
- //       translate([0,10, 0])l_upperPart_v2(); translate([0,-10, 0])r_upperPart_v2();
+  //      translate([0,10, 0])l_upperPart_v2(); translate([0,-10, 0])r_upperPart_v2();
 
     //translate([20,0,1.25])wireCover();
 }

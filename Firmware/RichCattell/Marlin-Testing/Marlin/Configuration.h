@@ -86,29 +86,56 @@
 #define DEFAULT_DELTA_DIAGONAL_ROD 280.2 // mm
 
 // Horizontal offset from middle of printer to smooth rod center.
-#define DELTA_SMOOTH_ROD_OFFSET 216.17 // mm //158
+#define DELTA_SMOOTH_ROD_OFFSET 216.17 //152 //156.4 // mm //158
 
 // Horizontal offset of the universal joints on the end effector.
-#define DELTA_EFFECTOR_OFFSET 30.30 // mm
+#define DELTA_EFFECTOR_OFFSET 30.30 //21 // mm
 
 // Horizontal offset of the universal joints on the carriages.
-#define DELTA_CARRIAGE_OFFSET 39.04 // mm
+#define DELTA_CARRIAGE_OFFSET 39.04 // 24 // mm
 
 // Effective horizontal distance bridged by diagonal push rods.
 #define DEFAULT_DELTA_RADIUS (DELTA_SMOOTH_ROD_OFFSET-DELTA_EFFECTOR_OFFSET-DELTA_CARRIAGE_OFFSET)
 
 //Uncomment to enable autocalibration debug messages
-//#define DEBUG_MESSAGES
+#define DEBUG_MESSAGES
 
-// Precision for G30 delta autocalibration function
-#define AUTOCALIBRATION_PRECISION 0.03 // mm
+//Speed for autocalibration travel and probing moves
+#define AUTOCAL_TRAVELRATE 200 // mm/sec
+#define AUTOCAL_PROBERATE 10 // mm/sec
+
+//Amount to lift head after probing a point
+#define AUTOCAL_PROBELIFT 2 // mm
+
+// Precision for G30 delta autocalibration function (calibrate to within +/- this value)
+#define AUTOCALIBRATION_PRECISION 0.05// mm
 
 // Diameter of print bed - this is used to set the distance that autocalibration probes the bed at.
-#define BED_DIAMETER 160 // mm
+#define BED_DIAMETER 160 //170 // mm
+
+//Endstop Offset Adjustment - All values are in mm and must be negative (to move down away from endstop switches) 
+#define TOWER_A_ENDSTOP_ADJ 0 // Front Left Tower
+#define TOWER_B_ENDSTOP_ADJ 0 // Front Right Tower
+#define TOWER_C_ENDSTOP_ADJ 0 // Rear Tower
+
+//Tower Position Adjustment - Adj x Degrees around delta radius (- move clockwise / + move anticlockwise)
+#define TOWER_A_POSITION_ADJ 0 //Front Left Tower
+#define TOWER_B_POSITION_ADJ 0 //Front Right Tower
+#define TOWER_C_POSITION_ADJ 0 //Rear Tower
+
+//Tower Radius Adjustment - Adj x mm in/out from centre of printer (- move in / + move out)
+#define TOWER_A_RADIUS_ADJ 0 //Front Left Tower
+#define TOWER_B_RADIUS_ADJ 0 //Front Right Tower
+#define TOWER_C_RADIUS_ADJ 0 //Rear Tower
+
+//Diagonal Rod Adjustment - Adj diag rod for Tower by x mm from DEFAULT_DELTA_DIAGONAL_ROD value
+#define TOWER_A_DIAGROD_ADJ 0 //Front Left Tower
+#define TOWER_B_DIAGROD_ADJ 0 //Front Right Tower
+#define TOWER_C_DIAGROD_ADJ 0 //Rear Tower
 
 // Z-Probe variables
 // Start and end location values are used to deploy/retract the probe (will move from start to end and back again) 
-#define Z_PROBE_OFFSET {-30, -17, -0.45, 0}  // X, Y, Z, E distance between hotend nozzle and deployed bed leveling probe.
+#define Z_PROBE_OFFSET {0, -22.9, -1.3, 0}  // X, Y, Z, E distance between hotend nozzle and deployed bed leveling probe.
 #define Z_PROBE_DEPLOY_START_LOCATION {0, 0, 10, 0}   // X, Y, Z, E start location for z-probe deployment sequence
 #define Z_PROBE_DEPLOY_END_LOCATION {0, 0, 10, 0} 	  // X, Y, Z, E end location for z-probe deployment sequence
 #define Z_PROBE_RETRACT_START_LOCATION {0, 0, 5, 0}  // X, Y, Z, E start location for z-probe retract sequence
@@ -196,9 +223,9 @@
 
 // If you are using a preconfigured hotend then you can use one of the value sets by uncommenting it
 // J-Head with 12v 40W heater cartridge
-    #define  DEFAULT_Kp 20.73
-    #define  DEFAULT_Ki 1.35
-    #define  DEFAULT_Kd 79.81
+    #define  DEFAULT_Kp 18.73 //15.34
+    #define  DEFAULT_Ki 1.58 //1.57
+    #define  DEFAULT_Kd 55.53 //37.45
 
 // Makergear
 //    #define  DEFAULT_Kp 7.0
@@ -290,7 +317,7 @@
 // The pullups are needed if you directly connect a mechanical endswitch between the signal and ground pins.
 const bool X_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Y_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
-const bool Z_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
+const bool Z_MIN_ENDSTOP_INVERTING = true; // set to true to invert the logic of the endstop.
 const bool X_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Y_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
@@ -349,20 +376,20 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // For deltabots this means top and center of the cartesian print volume.
 #define MANUAL_X_HOME_POS 0
 #define MANUAL_Y_HOME_POS 0
-#define MANUAL_Z_HOME_POS 238  // For delta: Distance between nozzle and print surface after homing.
+#define MANUAL_Z_HOME_POS 265  // For delta: Distance between nozzle and print surface after homing.
 
 //// MOVEMENT SETTINGS
 #define NUM_AXIS 4 // The axis order in all axis related arrays is X, Y, Z, E
-#define HOMING_FEEDRATE {60*60, 60*60, 60*60, 0}  // set the homing speeds (mm/min)
+#define HOMING_FEEDRATE {100*60, 100*60, 100*60, 0}  // set the homing speeds (mm/min)
 
 // default settings
 
 #define DEFAULT_AXIS_STEPS_PER_UNIT   {200, 200, 200, 469.4}
 #define DEFAULT_MAX_FEEDRATE          {200, 200, 200, 200}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {9000,9000,9000,9000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_MAX_ACCELERATION      {3000,3000,3000,3000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 
-#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  3000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
+#define DEFAULT_ACCELERATION          1000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  1500   // X, Y, Z and E max acceleration in mm/s^2 for retracts
 
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
@@ -393,11 +420,11 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // Preheat Constants
 #define PLA_PREHEAT_HOTEND_TEMP 180
 #define PLA_PREHEAT_HPB_TEMP 60
-#define PLA_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
+#define PLA_PREHEAT_FAN_SPEED 100 //255   // Insert Value between 0 and 255
 
 #define ABS_PREHEAT_HOTEND_TEMP 240
-#define ABS_PREHEAT_HPB_TEMP 90
-#define ABS_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
+#define ABS_PREHEAT_HPB_TEMP 100
+#define ABS_PREHEAT_FAN_SPEED 100 //255   // Insert Value between 0 and 255
 
 //LCD and SD support
 //#define ULTRA_LCD  //general lcd support, also 16x2
