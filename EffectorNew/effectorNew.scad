@@ -664,8 +664,8 @@ module assembly()
 
 module printArrange()
 {
-//    translate([0,0,6.375])lowerPart_v2();
-    rotate([0,0,-30])translate([0,40, 0])l_upperPart_v2(); rotate([0,0,30])translate([0,-40, 0])r_upperPart_v2();
+    translate([0,0,6.375])lowerPart_v2();
+//    rotate([0,0,-30])translate([0,40, 0])l_upperPart_v2(); rotate([0,0,30])translate([0,-40, 0])r_upperPart_v2();
     //translate([0,-5,9])rotate([90,0,0])l_FotekTop_mod(); translate([0,5,9])rotate([-90,0,0])r_FotekTop_mod();
   //      translate([0,10, 0])l_upperPart_v2(); translate([0,-10, 0])r_upperPart_v2();
 
