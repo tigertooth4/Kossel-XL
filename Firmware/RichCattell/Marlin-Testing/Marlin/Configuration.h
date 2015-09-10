@@ -86,7 +86,7 @@
 #define DEFAULT_DELTA_DIAGONAL_ROD 280.2 // mm
 
 // Horizontal offset from middle of printer to smooth rod center.
-#define DELTA_SMOOTH_ROD_OFFSET 216.17 //152 //156.4 // mm //158
+#define DELTA_SMOOTH_ROD_OFFSET 147.35//216.17 //152 //156.4 // mm //158
 
 // Horizontal offset of the universal joints on the end effector.
 #define DELTA_EFFECTOR_OFFSET 30.30 //21 // mm
@@ -380,7 +380,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
 //// MOVEMENT SETTINGS
 #define NUM_AXIS 4 // The axis order in all axis related arrays is X, Y, Z, E
-#define HOMING_FEEDRATE {100*60, 100*60, 100*60, 0}  // set the homing speeds (mm/min)
+#define HOMING_FEEDRATE {70*60, 70*60, 70*60, 0}  // set the homing speeds (mm/min)
 
 // default settings
 
